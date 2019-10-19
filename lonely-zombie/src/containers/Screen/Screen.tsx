@@ -1,23 +1,23 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, forwardRef, RefObject} from 'react';
 import {IDimensions} from '../WorkArea/WorkArea';
+
 
 export interface IScreen extends IDimensions {
     autoPlay: boolean;
+    startVideo: (videoElement: HTMLVideoElement) => void;
 }
 
-const Screen: React.FC<IScreen> = ({width, height, autoPlay}) => {
-    const video = useRef<HTMLVideoElement>(null);
+const Screen = forwardRef<HTMLVideoElement, IScreen>(({width, height, autoPlay, startVideo}, ref) => {
 
     useEffect(() => {
-        // const video = document.getElementById('video') as HTMLVideoElement;
-        const videoElement = video.current as HTMLVideoElement;
+        const videoElement = (ref as RefObject<HTMLVideoElement>).current as HTMLVideoElement;
 
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({video: true}).then(function (stream) {
-                // (video.current as HTMLVideoElement).srcObject = stream;
-                // (video.current as HTMLVideoElement).play();
                 videoElement.srcObject = stream;
-                videoElement.play();
+                videoElement.play()
+                    .then(() => startVideo(videoElement))
+                    .catch(err => console.log('Video Error: ' + err));
             });
         }
     }, []);
@@ -25,10 +25,9 @@ const Screen: React.FC<IScreen> = ({width, height, autoPlay}) => {
     return (
         <section>
             <p>Screen</p>
-            <video ref={video} id="video" width={width} height={height} autoPlay={autoPlay}/>
-            {/*<video id="video" width="640" height="480" autoPlay/>*/}
+            <video ref={ref} id="video" width={width} height={height} autoPlay={autoPlay}/>
         </section>
     );
-};
+});
 
 export default Screen;

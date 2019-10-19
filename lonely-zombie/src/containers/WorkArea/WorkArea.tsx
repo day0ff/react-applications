@@ -1,19 +1,16 @@
-import React from 'react';
-import house from '../../images/house.png';
+import React, {forwardRef} from 'react';
 
 export interface IDimensions {
-  width: number;
-  height: number;
+    width: number;
+    height: number;
 }
 
-const WorkArea: React.FC<IDimensions> = ({width, height}) => {
-  return (
-    <section>
-      <p>WorkArea</p>
-      <img src={house} width={width} height={height}/>
-      <canvas id="middle" width={width} height={height}/>
-    </section>
-  );
-};
+const WorkArea = forwardRef<HTMLCanvasElement, IDimensions>(({width, height}, ref) => {
+    return (
+        <section>
+            <canvas id="middle" ref={ref} width={width} height={height}/>
+        </section>
+    );
+});
 
 export default WorkArea;
