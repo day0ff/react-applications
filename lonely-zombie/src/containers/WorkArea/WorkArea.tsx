@@ -1,16 +1,12 @@
 import React, {forwardRef} from 'react';
 
-export interface IDimensions {
-    width: number;
-    height: number;
-}
-
-const WorkArea = forwardRef<HTMLCanvasElement, IDimensions>(({width, height}, ref) => {
-    return (
-        <section>
-            <canvas id="middle" ref={ref} width={width} height={height}/>
-        </section>
-    );
-});
+const WorkArea: React.FC<{ canvases: Element[] }> = ({canvases}) => {
+  return (
+    <section>
+      <p>WorkArea</p>
+      {canvases}
+    </section>
+  );
+};
 
 export default WorkArea;
