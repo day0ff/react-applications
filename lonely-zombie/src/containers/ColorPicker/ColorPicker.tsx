@@ -1,5 +1,5 @@
-import React, { RefObject, useState, useEffect, useRef, MouseEvent } from 'react';
-import { ICanvas } from '../../model/ICanvas';
+import React, {RefObject, useState, useEffect, useRef, MouseEvent} from 'react';
+import {ICanvas} from '../../model/ICanvas';
 
 const ColorPickerWidth = 30;
 const ColorPickerHeight = 30;
@@ -43,7 +43,6 @@ const ColorPicker: React.FC<IColorPicker> = ({width, height, name, inputData, ou
   }, [inputData]);
 
   const sendPixelColor = () => {
-    console.log(pixelColor);
     outputData && outputData(pixelColor);
   };
 

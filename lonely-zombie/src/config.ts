@@ -1,8 +1,8 @@
 export const config = {
-  width: 640,
-  height: 425,
+  width: 400,
+  height: 300,
   autoPlay: true,
-  color: {r: 255, g: 255, b: 255, a: 1},
+  color: {r: 51, g: 100, b: 51, a: 1},
   spread: 20,
-  range: {r: [51, 52], g: [140, 255], b: [51, 52], a: [1, 1]}
+  range: {r: [51, 76], g: [100, 255], b: [51, 76], a: [1, 1]}
 };

@@ -1,6 +1,7 @@
 import React, {forwardRef, useEffect, RefObject, useRef} from 'react';
 import {IMaskFace} from '../../model/canvases/IMaskFace';
-import {fillFace, pathFace} from '../../services/helpers';
+import {fillFace} from '../../services/helpers';
+
 
 const MaskFace: React.FC<IMaskFace> = ({width, height, name, inputData, outputData, positions}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -24,7 +25,6 @@ const MaskFace: React.FC<IMaskFace> = ({width, height, name, inputData, outputDa
     }
 
     const imageData = canvasContextResult.getImageData(0, 0, width, height);
-
     outputData && outputData(imageData);
 
   }, [inputData]);

@@ -5,6 +5,6 @@ export interface IBackground extends ICanvas<ImageData, ImageData> {
   img: {
     path: string;
   },
-  color:Color
+  color:Color,
   range:ColorRange
 }

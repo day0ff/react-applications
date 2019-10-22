@@ -3,7 +3,7 @@ import {ICanvas} from '../ICanvas';
 export type IPosition = [number, number];
 
 export interface IVideoData {
-  imageData?: ImageData;
+  videoData?: ImageData;
   positions?: IPosition[];
 }
 

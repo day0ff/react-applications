@@ -1,37 +1,37 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import Filters from '../Filters/Filters';
 import Gallery from '../Gallery/Gallery';
-import { config } from '../../config';
+import {config} from '../../config';
 
-import graveyard from '../../images/graveyard.jpg';
+import graveyard from '../../images/abstr.jpg';
 import Background from '../../components/canvases/Background';
-import { IBackground } from '../../model/canvases/IBackground';
+import {IBackground} from '../../model/canvases/IBackground';
 import Video from '../../components/canvases/Video';
-import { IVideo, IPosition } from '../../model/canvases/IVideo';
+import {IVideo, IPosition} from '../../model/canvases/IVideo';
 import Result from '../../components/canvases/Result';
-import { IResult } from '../../model/canvases/IResult';
+import {IResult} from '../../model/canvases/IResult';
 import MaskFace from '../../components/canvases/MaskFace';
-import { IMaskFace } from '../../model/canvases/IMaskFace';
+import {IMaskFace} from '../../model/canvases/IMaskFace';
 import Image from '../../components/canvases/Image';
-import { IImage } from '../../model/canvases/IImage';
+import {IImage} from '../../model/canvases/IImage';
 import picture from '../../images/magnus.png'
-import ColorPicker, { Color, IColorPicker } from '../ColorPicker/ColorPicker';
+import ColorPicker, {Color, IColorPicker} from '../ColorPicker/ColorPicker';
 
 const {width, height, autoPlay, color, range} = config;
 
 const App: React.FC = () => {
 
-  const [imageVideoData, setImageVideoData] = useState<ImageData>();
+  const [videoData, setVideoData] = useState<ImageData>();
   const [positionsData, setPositionsData] = useState<IPosition[]>();
 
-  const [imageBackgroundData, setBackgroundData] = useState<ImageData>();
+  const [backgroundData, setBackgroundData] = useState<ImageData>();
   const [maskFaceData, setMaskFaceData] = useState<ImageData>();
   const [colorData, setColorData] = useState<Color>(color);
 
   const video: IVideo = {
     name: 'video',
-    outputData: ({imageData, positions}) => {
-      setImageVideoData(imageData);
+    outputData: ({videoData, positions}) => {
+      setVideoData(videoData);
       setPositionsData(positions);
     },
     width,
@@ -41,8 +41,8 @@ const App: React.FC = () => {
 
   const image: IImage = {
     name: 'image',
-    outputData: ({imageData, positions}) => {
-      setImageVideoData(imageData);
+    outputData: ({videoData, positions}) => {
+      setVideoData(videoData);
       setPositionsData(positions);
     },
     width,
@@ -50,11 +50,20 @@ const App: React.FC = () => {
     src: picture
   };
 
+  const colorPicker: IColorPicker = {
+    name: 'color-picker',
+    inputData: videoData,
+    outputData: (color: Color) => setColorData(color),
+    width,
+    height,
+    color
+  };
+
   const background: IBackground = {
     name: 'background',
     img: {path: graveyard},
-    inputData: imageVideoData,
-    outputData: (data) => setBackgroundData(data),
+    inputData: videoData,
+    outputData: (backgroundData) => setBackgroundData(backgroundData),
     width,
     height,
     color: colorData,
@@ -63,8 +72,8 @@ const App: React.FC = () => {
 
   const maskFace: IMaskFace = {
     name: 'mask-face',
-    inputData: imageVideoData,
-    outputData: (data) => setMaskFaceData(data),
+    inputData: videoData,
+    outputData: (maskData) => setMaskFaceData(maskData),
     positions: positionsData,
     width,
     height
@@ -77,33 +86,26 @@ const App: React.FC = () => {
     height
   };
 
-  const colorPicker: IColorPicker = {
-    name: 'color-picker',
-    inputData: imageVideoData,
-    outputData: (color: Color) => setColorData(color),
-    width,
-    height,
-    color
-  };
-
   return (
     <>
       <header>
         Header
       </header>
       <section>
-        {/*<Video {...video}/>*/}
-        <Image {...image}/>
+        <Video {...video}/>
+        {/*<Image {...image}/>*/}
       </section>
-      {/*<section>*/}
-      <Background {...background}/>
-      {/*</section>*/}
-      {/*<section>*/}
-      {/*<MaskFace {...maskFace}/>*/}
-      {/*</section>*/}
       <section>
-        {/*<Result {...result}/>*/}
         <ColorPicker {...colorPicker}/>
+      </section>
+      <section>
+        <Background {...background}/>
+      </section>
+      <section>
+        <MaskFace {...maskFace}/>
+      </section>
+      <section>
+        <Result {...result}/>
       </section>
       <Filters/>
       <Gallery/>

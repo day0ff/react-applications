@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, RefObject } from 'react';
-import { IPosition, IVideo } from '../../model/canvases/IVideo';
-import { pathFace } from '../../services/helpers';
+import React, {useRef, useEffect, RefObject} from 'react';
+import {IPosition, IVideo} from '../../model/canvases/IVideo';
+import {circuit} from '../../services/circuit';
 
 declare global {
   interface Window {
@@ -25,14 +25,14 @@ const Video: React.FC<IVideo> = ({width, height, name, outputData, autoPlay}) =>
   const loop = (videoElement: HTMLVideoElement, faceDetection: any, canvasElement: HTMLCanvasElement, canvasContext: CanvasRenderingContext2D) => {
     canvasContext.drawImage(videoElement, 0, 0, width, height);
 
-    const imageData = canvasContext.getImageData(0, 0, width, height);
+    const videoData = canvasContext.getImageData(0, 0, width, height);
     const positions = faceDetection.getCurrentPosition() as IPosition[];
 
     if (positions) {
-      outputData && outputData({imageData, positions});
-      pathFace(positions, canvasContext);
+      outputData && outputData({videoData, positions});
+      circuit(positions, canvasContext);
     } else {
-      outputData && outputData({imageData});
+      outputData && outputData({videoData});
     }
 
     setTimeout(() => {

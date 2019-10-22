@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, RefObject } from 'react';
-import { IPosition } from '../../model/canvases/IVideo';
-import { pathFace } from '../../services/helpers';
-import { IImage } from '../../model/canvases/IImage';
+import React, {useRef, useEffect, RefObject} from 'react';
+import {IPosition} from '../../model/canvases/IVideo';
+import {circuit} from '../../services/circuit';
+import {IImage} from '../../model/canvases/IImage';
 
 const Image: React.FC<IImage> = ({width, height, name, outputData, src}) => {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -10,14 +10,14 @@ const Image: React.FC<IImage> = ({width, height, name, outputData, src}) => {
   const loop = (imageElement: HTMLImageElement, faceDetection: any, canvasElement: HTMLCanvasElement, canvasContext: CanvasRenderingContext2D) => {
     canvasContext.drawImage(imageElement, 0, 0, width, height);
 
-    const imageData = canvasContext.getImageData(0, 0, width, height);
+    const videoData = canvasContext.getImageData(0, 0, width, height);
     const positions = faceDetection.getCurrentPosition() as IPosition[];
 
     if (positions) {
-      outputData && outputData({imageData, positions});
-      pathFace(positions, canvasContext);
+      outputData && outputData({videoData, positions});
+      circuit(positions, canvasContext);
     } else {
-      outputData && outputData({imageData});
+      outputData && outputData({videoData});
     }
 
     setTimeout(() => {
@@ -30,7 +30,7 @@ const Image: React.FC<IImage> = ({width, height, name, outputData, src}) => {
 
     const canvasElement = (canvasRef as RefObject<HTMLCanvasElement>).current as HTMLCanvasElement;
     const canvasContext = canvasElement.getContext('2d') as CanvasRenderingContext2D;
-    const faceDetection = new window.clm.tracker({stopOnConvergence : true});
+    const faceDetection = new window.clm.tracker({stopOnConvergence: true});
 
     faceDetection.init();
     faceDetection.start(canvasElement);

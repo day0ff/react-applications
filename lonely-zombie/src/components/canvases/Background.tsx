@@ -1,12 +1,20 @@
-import React, { forwardRef, useState, useEffect, RefObject, useRef } from 'react';
-import { IBackground } from '../../model/canvases/IBackground';
-import { config } from '../../config';
-
-const {spread} = config;
+import React, {forwardRef, useState, useEffect, RefObject, useRef} from 'react';
+import {IBackground} from '../../model/canvases/IBackground';
+import {chromokey} from '../../services/chromokey';
 
 const Background: React.FC<IBackground> = ({width, height, img, name, inputData, outputData, color, range}) => {
-  const [lastColor, setLastColor] = useState(color);
-  const [currentColor, setCurrentColor] = useState(color);
+  const [lastColor, setLastColor] = useState({
+    r: range.r[0],
+    g: range.g[0],
+    b: range.b[0],
+    a: range.a[0],
+  });
+  const [currentColor, setCurrentColor] = useState({
+    r: range.r[1],
+    g: range.g[1],
+    b: range.b[1],
+    a: range.a[1],
+  });
   const [colorRange, setColorRange] = useState(range);
 
   const imageRef = useRef<HTMLImageElement>(null);
@@ -17,11 +25,11 @@ const Background: React.FC<IBackground> = ({width, height, img, name, inputData,
     setLastColor(currentColor);
     setCurrentColor(color);
     setColorRange({
-      r: Array.from(new Set([lastColor.r, currentColor.r])),
-      g: Array.from(new Set([lastColor.r, currentColor.g])),
-      b: Array.from(new Set([lastColor.r, currentColor.b])),
-      a: Array.from(new Set([lastColor.r, currentColor.a])),
-    })
+      r: [lastColor.r, currentColor.r].sort((a, b) => a - b),
+      g: [lastColor.g, currentColor.g].sort((a, b) => a - b),
+      b: [lastColor.b, currentColor.b].sort((a, b) => a - b),
+      a: [lastColor.a, currentColor.a].sort((a, b) => a - b)
+    });
   }, [color]);
 
   useEffect(() => {
@@ -34,19 +42,7 @@ const Background: React.FC<IBackground> = ({width, height, img, name, inputData,
     canvasContextResult.drawImage(imageElement, 0, 0, width, height);
 
     if (inputData) {
-      let frame = inputData;
-      let l = frame.data.length / 4;
-
-      for (let i = 0; i<l; i++) {
-        let r = frame.data[i * 4];
-        let g = frame.data[i * 4 + 1];
-        let b = frame.data[i * 4 + 2];
-        if (colorRange.r[0]>=r && r>=colorRange.r[1])
-          if (colorRange.g[0]>=g && g>=colorRange.g[0])
-            if (colorRange.b[0]>=b && b>=colorRange.b[0])
-              frame.data[i * 4 + 3] = 0;
-      }
-      canvasContext.putImageData(frame, 0, 0);
+      canvasContext.putImageData(chromokey(inputData, colorRange), 0, 0);
       canvasContextResult.drawImage(canvasElement, 0, 0, width, height)
     }
 
@@ -54,6 +50,7 @@ const Background: React.FC<IBackground> = ({width, height, img, name, inputData,
 
     outputData && outputData(imageData);
 
+    // console.log(range);
   }, [inputData]);
 
   return (
