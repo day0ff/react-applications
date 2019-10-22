@@ -17,7 +17,7 @@ import { IImage } from '../../model/canvases/IImage';
 import picture from '../../images/magnus.png'
 import ColorPicker, { Color, IColorPicker } from '../ColorPicker/ColorPicker';
 
-const {width, height, autoPlay, color} = config;
+const {width, height, autoPlay, color, range} = config;
 
 const App: React.FC = () => {
 
@@ -57,7 +57,8 @@ const App: React.FC = () => {
     outputData: (data) => setBackgroundData(data),
     width,
     height,
-    color:colorData
+    color: colorData,
+    range
   };
 
   const maskFace: IMaskFace = {
