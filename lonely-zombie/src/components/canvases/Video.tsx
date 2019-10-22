@@ -1,6 +1,6 @@
-import React, {useRef, useEffect, RefObject} from 'react';
-import {IPosition, IVideo} from '../../model/canvases/IVideo';
-import {pathFace} from '../../services/helpers';
+import React, { useRef, useEffect, RefObject } from 'react';
+import { IPosition, IVideo } from '../../model/canvases/IVideo';
+import { pathFace } from '../../services/helpers';
 
 declare global {
   interface Window {
@@ -28,10 +28,10 @@ const Video: React.FC<IVideo> = ({width, height, name, outputData, autoPlay}) =>
     const imageData = canvasContext.getImageData(0, 0, width, height);
     const positions = faceDetection.getCurrentPosition() as IPosition[];
 
-    if(positions){
+    if (positions) {
       outputData && outputData({imageData, positions});
       pathFace(positions, canvasContext);
-    }else{
+    } else {
       outputData && outputData({imageData});
     }
 
@@ -56,7 +56,7 @@ const Video: React.FC<IVideo> = ({width, height, name, outputData, autoPlay}) =>
   return (
     <>
       <p>Video</p>
-      <video ref={videoRef} width={width} height={height} autoPlay={autoPlay}/>
+      <video ref={videoRef} id={name + '-video'} width={width} height={height} autoPlay={autoPlay}/>
       <canvas ref={canvasRef} id={name} width={width} height={height}/>
     </>
   );

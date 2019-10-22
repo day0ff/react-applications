@@ -1,5 +1,7 @@
 export const config = {
-  width: 400,
-  height: 300,
-  autoPlay: true
+  width: 640,
+  height: 425,
+  autoPlay: true,
+  color: {r: 255, g: 255, b: 255, a: 1},
+  spread:20
 };

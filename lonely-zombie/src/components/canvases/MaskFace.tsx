@@ -33,7 +33,7 @@ const MaskFace: React.FC<IMaskFace> = ({width, height, name, inputData, outputDa
     <>
       <p>MaskFace</p>
       <canvas ref={canvasRef} id={name} width={width} height={height}/>
-      <canvas ref={canvasRefResult} id={name + 'result'} width={width} height={height}/>
+      <canvas ref={canvasRefResult} id={name + '-result'} width={width} height={height}/>
     </>
   );
 };
