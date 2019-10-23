@@ -30,7 +30,7 @@ const Video: React.FC<IVideo> = ({width, height, name, outputData, autoPlay}) =>
 
     if (positions) {
       outputData && outputData({videoData, positions});
-      circuit(positions, canvasContext);
+      // circuit(positions, canvasContext);
       faceDetection.draw(canvasElement);
     } else {
       outputData && outputData({videoData});
