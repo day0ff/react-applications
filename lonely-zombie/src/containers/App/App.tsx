@@ -1,21 +1,23 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Filters from '../Filters/Filters';
 import Gallery from '../Gallery/Gallery';
-import {config} from '../../config';
+import { config } from '../../config';
 
 import graveyard from '../../images/abstr.jpg';
 import Background from '../../components/canvases/Background';
-import {IBackground} from '../../model/canvases/IBackground';
+import { IBackground } from '../../model/canvases/IBackground';
 import Video from '../../components/canvases/Video';
-import {IVideo, IPosition} from '../../model/canvases/IVideo';
+import { IVideo, IPosition } from '../../model/canvases/IVideo';
 import Result from '../../components/canvases/Result';
-import {IResult} from '../../model/canvases/IResult';
+import { IResult } from '../../model/canvases/IResult';
 import MaskFace from '../../components/canvases/MaskFace';
-import {IMaskFace} from '../../model/canvases/IMaskFace';
+import { IMaskFace } from '../../model/canvases/IMaskFace';
 import Image from '../../components/canvases/Image';
-import {IImage} from '../../model/canvases/IImage';
+import { IImage } from '../../model/canvases/IImage';
 import picture from '../../images/magnus.png'
-import ColorPicker, {Color, IColorPicker} from '../ColorPicker/ColorPicker';
+import ColorPicker, { Color, IColorPicker } from '../ColorPicker/ColorPicker';
+import GLFX from '../../components/canvases/GLFX';
+import { IGLFX } from '../../model/canvases/IGLFX';
 
 const {width, height, autoPlay, color, range} = config;
 
@@ -26,6 +28,7 @@ const App: React.FC = () => {
 
   const [backgroundData, setBackgroundData] = useState<ImageData>();
   const [maskFaceData, setMaskFaceData] = useState<ImageData>();
+  const [glfxData, setGlfxData] = useState<ImageData>();
   const [colorData, setColorData] = useState<Color>(color);
 
   const video: IVideo = {
@@ -79,9 +82,17 @@ const App: React.FC = () => {
     height
   };
 
+  const glfx: IGLFX = {
+    name: 'glfx',
+    inputData: maskFaceData,
+    outputData: (glfxData) => setGlfxData(glfxData),
+    width,
+    height
+  };
+
   const result: IResult = {
     name: 'result',
-    inputData: maskFaceData,
+    inputData: [backgroundData as ImageData, glfxData as ImageData],
     width,
     height
   };
@@ -103,6 +114,9 @@ const App: React.FC = () => {
       </section>
       <section>
         <MaskFace {...maskFace}/>
+      </section>
+      <section>
+        <GLFX {...glfx}/>
       </section>
       <section>
         <Result {...result}/>

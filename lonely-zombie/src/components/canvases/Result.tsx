@@ -1,35 +1,29 @@
-import React, {useRef, useEffect, RefObject} from 'react';
-import {IResult} from '../../model/canvases/IResult';
-
-declare global {
-  interface Window {
-    fx: any;
-  }
-}
+import React, { useState, useRef, useEffect, RefObject } from 'react';
+import { IResult } from '../../model/canvases/IResult';
 
 const Result: React.FC<IResult> = ({width, height, name, inputData}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRefResult = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvasElement = (canvasRef as RefObject<HTMLCanvasElement>).current as HTMLCanvasElement;
     const canvasContext = canvasElement.getContext('2d') as CanvasRenderingContext2D;
-    inputData && canvasContext.putImageData(inputData, 0, 0);
-
-
-    // const canvas = window.fx.canvas();
-    // const texture = canvas.texture(canvasElement);
-    // canvas.draw(texture)
-    //   .denoise(50)
-    //   .unsharpMask(20, 1)
-    //   .hueSaturation(0.3, 0.5)
-    //   .update();
-
+    const canvasElementResult = (canvasRefResult as RefObject<HTMLCanvasElement>).current as HTMLCanvasElement;
+    const canvasContextResult = canvasElementResult.getContext('2d') as CanvasRenderingContext2D;
+    inputData && inputData.forEach(data => {
+        if (data) {
+          canvasContext.putImageData(data, 0, 0);
+          canvasContextResult.drawImage(canvasElement, 0, 0);
+        }
+      }
+    );
   }, [inputData]);
 
   return (
     <>
       <p>Result</p>
       <canvas ref={canvasRef} id={name} width={width} height={height}/>
+      <canvas ref={canvasRefResult} id={name + '-result'} width={width} height={height}/>
     </>
   );
 };

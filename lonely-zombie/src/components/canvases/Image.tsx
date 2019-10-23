@@ -22,7 +22,7 @@ const Image: React.FC<IImage> = ({width, height, name, outputData, src}) => {
 
     setTimeout(() => {
       loop(imageElement, faceDetection, canvasElement, canvasContext);
-    }, 300);
+    }, 30);
   };
 
   useEffect(() => {

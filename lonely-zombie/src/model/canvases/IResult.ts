@@ -1,4 +1,5 @@
 import { ICanvas } from '../ICanvas';
 
-export interface IResult extends ICanvas<ImageData, undefined> {
+export interface IResult extends ICanvas<ImageData[], undefined> {
+  inputData: ImageData[];
 }
