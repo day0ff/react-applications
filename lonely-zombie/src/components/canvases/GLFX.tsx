@@ -8,17 +8,15 @@ declare global {
 }
 
 const canvas = window.fx.canvas();
+const canvasElement = document.createElement('canvas');
+const canvasContext = canvasElement.getContext('2d') as CanvasRenderingContext2D;
+const texture = canvas.texture(canvasElement);
 
 const GLFX: React.FC<IGLFX> = ({name, width, height, inputData, outputData}) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
   useEffect(() => {
     if (inputData) {
-      const canvasElement = (canvasRef as RefObject<HTMLCanvasElement>).current as HTMLCanvasElement;
-      const canvasContext = canvasElement.getContext('2d') as CanvasRenderingContext2D;
       canvasContext.putImageData(inputData, 0, 0);
 
-      const texture = canvas.texture(canvasElement);
       canvas.draw(texture)
         .denoise(50)
         .unsharpMask(20, 1)
@@ -33,7 +31,7 @@ const GLFX: React.FC<IGLFX> = ({name, width, height, inputData, outputData}) => 
     }
   }, [inputData]);
 
-  return <canvas ref={canvasRef} id={name} width={width} height={height}/>
+  return null;
 
 };
 

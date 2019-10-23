@@ -1,6 +1,6 @@
-import React, {useRef, useEffect, RefObject} from 'react';
-import {IPosition, IVideo} from '../../model/canvases/IVideo';
-import {circuit} from '../../services/circuit';
+import React, { useRef, useEffect, RefObject } from 'react';
+import { IPosition, IVideo } from '../../model/canvases/IVideo';
+import { circuit } from '../../services/circuit';
 
 declare global {
   interface Window {
@@ -31,6 +31,7 @@ const Video: React.FC<IVideo> = ({width, height, name, outputData, autoPlay}) =>
     if (positions) {
       outputData && outputData({videoData, positions});
       circuit(positions, canvasContext);
+      faceDetection.draw(canvasElement);
     } else {
       outputData && outputData({videoData});
     }

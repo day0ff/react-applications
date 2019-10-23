@@ -1,6 +1,6 @@
-import React, {forwardRef, useState, useEffect, RefObject, useRef} from 'react';
-import {IBackground} from '../../model/canvases/IBackground';
-import {chromokey} from '../../services/chromokey';
+import React, { forwardRef, useState, useEffect, RefObject, useRef } from 'react';
+import { IBackground } from '../../model/canvases/IBackground';
+import { chromokey } from '../../services/chromokey';
 
 const Background: React.FC<IBackground> = ({width, height, img, name, inputData, outputData, color, range}) => {
   const [lastColor, setLastColor] = useState({
@@ -50,7 +50,6 @@ const Background: React.FC<IBackground> = ({width, height, img, name, inputData,
 
     outputData && outputData(imageData);
 
-    // console.log(range);
   }, [inputData]);
 
   return (

@@ -1,7 +1,7 @@
-import React, {useRef, useEffect, RefObject} from 'react';
-import {IPosition} from '../../model/canvases/IVideo';
-import {circuit} from '../../services/circuit';
-import {IImage} from '../../model/canvases/IImage';
+import React, { useRef, useEffect, RefObject } from 'react';
+import { IPosition } from '../../model/canvases/IVideo';
+import { circuit } from '../../services/circuit';
+import { IImage } from '../../model/canvases/IImage';
 
 const Image: React.FC<IImage> = ({width, height, name, outputData, src}) => {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -15,7 +15,8 @@ const Image: React.FC<IImage> = ({width, height, name, outputData, src}) => {
 
     if (positions) {
       outputData && outputData({videoData, positions});
-      circuit(positions, canvasContext);
+      // circuit(positions, canvasContext);
+      faceDetection.draw(canvasElement);
     } else {
       outputData && outputData({videoData});
     }
@@ -30,7 +31,7 @@ const Image: React.FC<IImage> = ({width, height, name, outputData, src}) => {
 
     const canvasElement = (canvasRef as RefObject<HTMLCanvasElement>).current as HTMLCanvasElement;
     const canvasContext = canvasElement.getContext('2d') as CanvasRenderingContext2D;
-    const faceDetection = new window.clm.tracker({stopOnConvergence: true});
+    const faceDetection = new window.clm.tracker();
 
     faceDetection.init();
     faceDetection.start(canvasElement);

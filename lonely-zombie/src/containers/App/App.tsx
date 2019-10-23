@@ -1,12 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Filters from '../Filters/Filters';
-import Gallery from '../Gallery/Gallery';
 import { config } from '../../config';
 
 import graveyard from '../../images/abstr.jpg';
 import Background from '../../components/canvases/Background';
 import { IBackground } from '../../model/canvases/IBackground';
-import Video from '../../components/canvases/Video';
 import { IVideo, IPosition } from '../../model/canvases/IVideo';
 import Result from '../../components/canvases/Result';
 import { IResult } from '../../model/canvases/IResult';
@@ -18,6 +15,7 @@ import picture from '../../images/magnus.png'
 import ColorPicker, { Color, IColorPicker } from '../ColorPicker/ColorPicker';
 import GLFX from '../../components/canvases/GLFX';
 import { IGLFX } from '../../model/canvases/IGLFX';
+import ReactDOM from 'react-dom';
 
 const {width, height, autoPlay, color, range} = config;
 
@@ -99,12 +97,9 @@ const App: React.FC = () => {
 
   return (
     <>
-      <header>
-        Header
-      </header>
       <section>
-        <Video {...video}/>
-        {/*<Image {...image}/>*/}
+        {/*<Video {...video}/>*/}
+        <Image {...image}/>
       </section>
       <section>
         <ColorPicker {...colorPicker}/>
@@ -121,11 +116,6 @@ const App: React.FC = () => {
       <section>
         <Result {...result}/>
       </section>
-      <Filters/>
-      <Gallery/>
-      <footer>
-        Footer
-      </footer>
     </>
   );
 };
