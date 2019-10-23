@@ -1,8 +1,8 @@
 import React, { forwardRef, useEffect, RefObject, useRef } from 'react';
-import { IMaskFace } from '../../model/canvases/IMaskFace';
+import { IMask } from '../../model/canvases/IMask';
 import { fillFace } from '../../services/helpers';
 
-const MaskFace: React.FC<IMaskFace> = ({width, height, name, inputData, outputData, positions}) => {
+const Mask: React.FC<IMask> = ({width, height, name, inputData, outputData, positions}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const MaskFace: React.FC<IMaskFace> = ({width, height, name, inputData, outputDa
     if (positions) {
       canvasContext.clearRect(0, 0, width, height);
       canvasContext.save();
-      canvasContext.globalAlpha = 0.7;
+      // canvasContext.globalAlpha = 0.7;
       fillFace(positions, canvasContext);
       canvasContext.drawImage(tempCanvas, 0, 0, width, height);
       canvasContext.restore();
@@ -37,4 +37,4 @@ const MaskFace: React.FC<IMaskFace> = ({width, height, name, inputData, outputDa
   );
 };
 
-export default MaskFace;
+export default Mask;

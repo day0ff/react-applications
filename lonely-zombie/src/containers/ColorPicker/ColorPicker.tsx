@@ -11,13 +11,6 @@ export interface Color {
   a: number;
 }
 
-export interface ColorRange {
-  r: number[];
-  g: number[];
-  b: number[];
-  a: number[];
-}
-
 export interface IColorPicker extends ICanvas<ImageData, Color> {
   color: Color;
 }

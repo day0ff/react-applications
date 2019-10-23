@@ -38,7 +38,7 @@ const Video: React.FC<IVideo> = ({width, height, name, outputData, autoPlay}) =>
 
     setTimeout(() => {
       loop(videoElement, faceDetection, canvasElement, canvasContext);
-    }, 30);
+    }, 0);
   };
 
   useEffect(() => {
