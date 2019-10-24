@@ -1,20 +1,20 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {config} from '../../config';
+import React, { useState, useRef, useEffect } from 'react';
+import config from '../../config.json';
 
 import graveyard from '../../images/graveyard.jpg';
 import Background from '../../components/canvases/Background';
-import {IBackground} from '../../model/canvases/IBackground';
-import {IVideo, IPosition} from '../../model/canvases/IVideo';
+import { IBackground } from '../../model/canvases/IBackground';
+import { IVideo, IPosition } from '../../model/canvases/IVideo';
 import Result from '../../components/canvases/Result';
-import {IResult} from '../../model/canvases/IResult';
+import { IResult } from '../../model/canvases/IResult';
 import MaskFace from '../../components/canvases/Mask';
-import {IMask} from '../../model/canvases/IMask';
+import { IMask } from '../../model/canvases/IMask';
 import Image from '../../components/canvases/Image';
-import {IImage} from '../../model/canvases/IImage';
+import { IImage } from '../../model/canvases/IImage';
 import picture from '../../images/magnus.png'
-import ColorPicker, {Color, IColorPicker} from '../ColorPicker/ColorPicker';
+import ColorPicker, { Color, IColorPicker } from '../ColorPicker/ColorPicker';
 import GLFX from '../../components/canvases/GLFX';
-import {IGLFX} from '../../model/canvases/IGLFX';
+import { IGLFX } from '../../model/canvases/IGLFX';
 import Video from '../../components/canvases/Video';
 
 const {width, height, autoPlay, color, tolerance} = config;
@@ -131,8 +131,8 @@ const App: React.FC = () => {
   return (
     <>
       <section>
-        <Video {...video}/>
-        {/*<Image {...image}/>*/}
+        {/*<Video {...video}/>*/}
+        <Image {...image}/>
       </section>
       <section>
         <Result {...result}/>

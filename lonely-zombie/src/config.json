@@ -1,0 +1,12 @@
+{
+  "width": 400,
+  "height": 300,
+  "autoPlay": true,
+  "color": {
+    "r": 51,
+    "g": 203,
+    "b": 51,
+    "a": 1
+  },
+  "tolerance": 150
+}
