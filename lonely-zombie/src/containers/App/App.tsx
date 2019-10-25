@@ -16,14 +16,10 @@ import ColorPicker, { Color, IColorPicker } from '../ColorPicker/ColorPicker';
 import GLFX from '../../components/canvases/GLFX';
 import { IGLFX } from '../../model/canvases/IGLFX';
 import Video from '../../components/canvases/Video';
+import Deformer from '../../components/canvases/Deformer';
+import { IDeformer } from '../../model/canvases/IDeformer';
 
 const {width, height, autoPlay, color, tolerance} = config;
-
-declare global {
-  interface Window {
-    fx: any;
-  }
-}
 
 const canvas = window.fx.canvas();
 
@@ -39,6 +35,7 @@ const App: React.FC = () => {
   const [glfxMaskData, setGlfxMaskData] = useState<ImageData>();
   const [colorData, setColorData] = useState<Color>(color);
   const [toleranceData, setToleranceData] = useState<number>(tolerance);
+  const [deformerData, setDeformerData] = useState<ImageData>();
 
   const video: IVideo = {
     name: 'video',
@@ -121,6 +118,15 @@ const App: React.FC = () => {
     }
   };
 
+  const deformer: IDeformer = {
+    name: 'deformer',
+    inputData: videoData,
+    outputData: (deformerData) => setDeformerData(deformerData),
+    width,
+    height,
+    positions: positionsData
+  };
+
   const result: IResult = {
     name: 'result',
     inputData: [glfxBackgroundData as ImageData, glfxMaskData as ImageData],
@@ -148,7 +154,9 @@ const App: React.FC = () => {
         <MaskFace {...mask}/>
         <GLFX {...glfxMask}/>
       </section>
-
+      <section>
+        <Deformer {...deformer}/>
+      </section>
     </>
   );
 };
