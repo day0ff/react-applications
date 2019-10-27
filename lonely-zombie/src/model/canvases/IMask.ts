@@ -1,6 +1,21 @@
-import { ICanvas } from '../ICanvas';
-import { IPosition } from './IVideo';
+import {ICanvas} from '../ICanvas';
+import {IPosition} from './IVideo';
+import {Color} from '../../containers/ColorPicker/ColorPicker';
+
+export interface IPath {
+  (points: IPosition[], context: CanvasRenderingContext2D): CanvasRenderingContext2D
+}
+
+export interface IArea {
+  path: IPath,
+  color: Color
+}
+
 
 export interface IMask extends ICanvas<ImageData, ImageData> {
-  positions?: IPosition[];
+  positions: IPosition[];
+  mask: {
+    background: Color,
+    areas: IArea[]
+  };
 }

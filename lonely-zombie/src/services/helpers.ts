@@ -1,4 +1,5 @@
 import {IPosition} from '../model/canvases/IVideo';
+import {Color} from '../containers/ColorPicker/ColorPicker';
 
 export function fillFace(positions: IPosition[], canvasContext: CanvasRenderingContext2D) {
   canvasContext.beginPath();
@@ -18,4 +19,8 @@ export function average(a: number, b: number): number {
 
 export function length(x: IPosition, y: IPosition): number {
   return Math.round(Math.sqrt((x[0] - y[0]) ** 2 + (x[1] - y[1]) ** 2));
+}
+
+export function rgba(color:Color){
+  return `rgba(${color.r},${color.g},${color.b},${color.a})`
 }

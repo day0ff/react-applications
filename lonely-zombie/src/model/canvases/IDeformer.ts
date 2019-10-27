@@ -1,5 +1,5 @@
-import { ICanvas } from '../ICanvas';
-import { IPosition } from './IVideo';
+import {ICanvas} from '../ICanvas';
+import {IPosition} from './IVideo';
 
 declare global {
   interface Window {
@@ -8,5 +8,5 @@ declare global {
 }
 
 export interface IDeformer extends ICanvas<ImageData, ImageData> {
-  positions?: IPosition[];
+  positions: { before: IPosition[], after: IPosition[] };
 }

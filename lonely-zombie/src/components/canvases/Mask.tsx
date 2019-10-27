@@ -1,40 +1,58 @@
-import React, { forwardRef, useEffect, RefObject, useRef } from 'react';
-import { IMask } from '../../model/canvases/IMask';
-import { fillFace } from '../../services/helpers';
+import React, {useRef, useEffect, RefObject} from 'react';
+import {IMask} from '../../model/canvases/IMask';
+import {rgba} from '../../services/helpers';
 
-const Mask: React.FC<IMask> = ({width, height, name, inputData, outputData, positions}) => {
+const Mask: React.FC<IMask> = ({name, width, height, inputData, outputData, mask, positions}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = width;
-    tempCanvas.height = height;
-    const tempContext = tempCanvas.getContext('2d') as CanvasRenderingContext2D;
-    const canvasElement = (canvasRef as RefObject<HTMLCanvasElement>).current as HTMLCanvasElement;
-    const canvasContext = canvasElement.getContext('2d') as CanvasRenderingContext2D;
+    if (inputData && positions) {
+      const {background, areas} = mask;
 
-    inputData && tempContext.putImageData(inputData, 0, 0);
 
-    if (positions) {
+      const canvasElement = (canvasRef as RefObject<HTMLCanvasElement>).current as HTMLCanvasElement;
+      const canvasContext = canvasElement.getContext('2d') as CanvasRenderingContext2D;
+
       canvasContext.clearRect(0, 0, width, height);
-      canvasContext.save();
-      // canvasContext.globalAlpha = 0.7;
-      fillFace(positions, canvasContext);
+      canvasContext.putImageData(inputData, 0, 0);
+
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = width;
+      tempCanvas.height = height;
+
+      const tempContext = tempCanvas.getContext('2d') as CanvasRenderingContext2D;
+
+      tempContext.fillStyle = rgba(background);
+      tempContext.fill();
+
+      areas.forEach(area => {
+        tempContext.save();
+        tempContext.fillStyle = rgba(area.color);
+        tempContext.beginPath();
+
+        area.path(positions, tempContext);
+
+        tempContext.closePath();
+        tempContext.fill();
+
+        tempContext.restore()
+      });
+
       canvasContext.drawImage(tempCanvas, 0, 0, width, height);
-      canvasContext.restore();
+
+      const imageData = canvasContext.getImageData(0, 0, width, height);
+
+      outputData && outputData(imageData);
     }
-
-    const imageData = canvasContext.getImageData(0, 0, width, height);
-    outputData && outputData(imageData);
-
   }, [inputData]);
 
   return (
     <>
-      <p>MaskFace</p>
+      <p>Mask</p>
       <canvas ref={canvasRef} id={name} width={width} height={height}/>
     </>
   );
+
 };
 
 export default Mask;
