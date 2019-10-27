@@ -18,7 +18,7 @@ import {IGLFX} from '../../model/canvases/IGLFX';
 import Video from '../../components/Video/Video';
 import Deformer from '../../components/canvases/Deformer/Deformer';
 import {IDeformer} from '../../model/canvases/IDeformer';
-import Mask from '../../components/canvases/Mask';
+import Mask from '../../components/canvases/Mask/Mask';
 import {IMask} from '../../model/canvases/IMask';
 import {eyePath} from '../../services/areas/eye';
 import {witchNose} from '../../services/deformations/witch/witch-nose';

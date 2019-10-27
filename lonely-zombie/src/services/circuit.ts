@@ -2,7 +2,6 @@ import {average, length} from './helpers';
 import {IPosition} from '../model/canvases/IVideo';
 
 export function circuit(positions: IPosition[], canvasContext: CanvasRenderingContext2D) {
-  canvasContext.fillStyle = 'red';
   canvasContext.beginPath();
   const angle = Math.acos((positions[14][0] - positions[0][0]) / length(positions[0], positions[14]));
   const sign = positions[14][1] - positions[0][1] > 0 ? 1 : -1;

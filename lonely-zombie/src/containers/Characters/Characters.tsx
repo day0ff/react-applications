@@ -12,6 +12,7 @@ const Characters: React.FC<ICharacter> = ({setCharacter}) => {
     <section className={'Characters'}>
       <Character name={'witch'} setCharacter={setCharacter}/>
       <Character name={'zombie'} setCharacter={setCharacter}/>
+      <Character name={'joker'} setCharacter={setCharacter}/>
     </section>
   );
 };

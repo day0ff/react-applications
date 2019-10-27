@@ -1,6 +1,7 @@
 import React, {useRef, useEffect, RefObject} from 'react';
-import {IMask} from '../../model/canvases/IMask';
-import {rgba} from '../../services/helpers';
+import './Mask.css';
+import {IMask} from '../../../model/canvases/IMask';
+import {rgba} from '../../../services/helpers';
 
 const Mask: React.FC<IMask> = ({width, height, inputData, outputData, mask, positions}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -14,7 +15,6 @@ const Mask: React.FC<IMask> = ({width, height, inputData, outputData, mask, posi
       const canvasContext = canvasElement.getContext('2d') as CanvasRenderingContext2D;
 
       canvasContext.clearRect(0, 0, width, height);
-      canvasContext.putImageData(inputData, 0, 0);
 
       const tempCanvas = document.createElement('canvas');
       tempCanvas.width = width;
@@ -28,12 +28,12 @@ const Mask: React.FC<IMask> = ({width, height, inputData, outputData, mask, posi
       areas.forEach(area => {
         tempContext.save();
         tempContext.fillStyle = rgba(area.color);
+        tempContext.strokeStyle = rgba(area.color);
         tempContext.beginPath();
 
         area.path(positions, tempContext);
 
         tempContext.closePath();
-        tempContext.fill();
 
         tempContext.restore()
       });
@@ -47,7 +47,7 @@ const Mask: React.FC<IMask> = ({width, height, inputData, outputData, mask, posi
   }, [inputData]);
 
   return (
-    <section>
+    <section className={'Mask'}>
       <p>Mask</p>
       <canvas ref={canvasRef} width={width} height={height}/>
     </section>

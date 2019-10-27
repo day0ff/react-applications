@@ -3,9 +3,10 @@ import './Article.css';
 import Characters from '../Characters/Characters';
 import Witch from '../Characters/Witch/Witch';
 import Zombie from '../Characters/Zombie/Zombie';
+import Joker from '../Characters/Joker/Joker';
 
 const Article: React.FC = () => {
-  const [currentCharacter, setCurrentCharacter] = useState<string>('zombie');
+  const [currentCharacter, setCurrentCharacter] = useState<string>('joker');
 
   const setCharacter = (name: string) => {
     setCurrentCharacter(name);
@@ -15,6 +16,7 @@ const Article: React.FC = () => {
     <article>
       {currentCharacter === 'witch' && <Witch/>}
       {currentCharacter === 'zombie' && <Zombie/>}
+      {currentCharacter === 'joker' && <Joker/>}
       <Characters setCharacter={setCharacter}/>
     </article>
   );

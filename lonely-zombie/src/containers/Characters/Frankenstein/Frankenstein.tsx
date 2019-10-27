@@ -15,7 +15,7 @@ import {IFaceCircuit} from '../../../model/canvases/IFaceCircuit';
 import {eyePath} from '../../../services/areas/eye';
 import Video from '../../../components/Video/Video';
 import FaceCircuit from '../../../components/canvases/FaceCircuit/FaceCircuit';
-import Mask from '../../../components/canvases/Mask';
+import Mask from '../../../components/canvases/Mask/Mask';
 import GLFX from '../../../components/canvases/GLFX';
 import Deformer from '../../../components/canvases/Deformer/Deformer';
 import Background from '../../../components/canvases/Background/Background';
