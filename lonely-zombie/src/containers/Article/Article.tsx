@@ -6,7 +6,7 @@ import Zombie from '../Characters/Zombie/Zombie';
 import Joker from '../Characters/Joker/Joker';
 
 const Article: React.FC = () => {
-  const [currentCharacter, setCurrentCharacter] = useState<string>('joker');
+  const [currentCharacter, setCurrentCharacter] = useState<string>('zombie');
 
   const setCharacter = (name: string) => {
     setCurrentCharacter(name);

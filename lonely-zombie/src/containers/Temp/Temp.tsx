@@ -9,7 +9,7 @@ import Result from '../../components/canvases/Result';
 import {IResult} from '../../model/canvases/IResult';
 import FaceCircuit from '../../components/canvases/FaceCircuit/FaceCircuit';
 import {IFaceCircuit} from '../../model/canvases/IFaceCircuit';
-import Image from '../../components/canvases/Image';
+import Image from '../../components/canvases/Image/Image';
 import {IImage} from '../../model/canvases/IImage';
 import picture from '../../images/magnus.png'
 import ColorPicker, {Color, IColorPicker} from '../../components/canvases/ColorPicker/ColorPicker';

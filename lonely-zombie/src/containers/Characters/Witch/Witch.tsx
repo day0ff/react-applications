@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect, RefObject} from 'react';
 import config from '../../../config.json';
-import graveyard from '../../../images/graveyard.jpg';
+import picture from '../../../images/magnus.png'
+import witch from '../../../images/witch2.jpg';
 
 import {IGLFX} from '../../../model/canvases/IGLFX';
 import {IBackground} from '../../../model/canvases/IBackground';
@@ -16,6 +17,8 @@ import Deformer from '../../../components/canvases/Deformer/Deformer';
 import Background from '../../../components/canvases/Background/Background';
 import Result from '../../../components/canvases/Result';
 import {witchNose} from '../../../services/deformations/witch/witch-nose';
+import {IImage} from '../../../model/canvases/IImage';
+import Image from '../../../components/canvases/Image/Image';
 
 const {width, height, autoPlay, color, tolerance} = config;
 
@@ -50,6 +53,16 @@ const Witch: React.FC = () => {
     autoPlay
   };
 
+  const image: IImage = {
+    outputData: ({videoData, positions}) => {
+      setVideoData(videoData);
+      setPositionsData(positions);
+    },
+    width,
+    height,
+    src: picture
+  };
+
   const colorPicker: IColorPicker = {
     inputData: videoData,
     outputData: (color: Color) => _isMounted && setColorData(color),
@@ -59,7 +72,7 @@ const Witch: React.FC = () => {
   };
 
   const background: IBackground = {
-    img: {path: graveyard},
+    img: {path: witch},
     inputData: videoData,
     outputData: (backgroundData) => _isMounted && setBackgroundData(backgroundData),
     width,
@@ -77,7 +90,7 @@ const Witch: React.FC = () => {
       return canvas.draw(canvas.texture(tempCanvas))
         .denoise(50)
         .unsharpMask(20, 1)
-        // .hueSaturation(0.1, 0.5)
+        .hueSaturation(0.1, 0.5)
         .update();
     }
   };
@@ -110,7 +123,8 @@ const Witch: React.FC = () => {
   return (
     <>
       <p>Witch</p>
-      <Video {...video}/>
+      {/*<Video {...video}/>*/}
+      <Image {...image}/>
       <ColorPicker {...colorPicker}/>
       <FaceCircuit {...faceCircuit}/>
       <Deformer {...deformer}/>

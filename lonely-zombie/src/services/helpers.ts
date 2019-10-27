@@ -24,3 +24,7 @@ export function length(x: IPosition, y: IPosition): number {
 export function rgba(color:Color){
   return `rgba(${color.r},${color.g},${color.b},${color.a})`
 }
+
+export function angle(positions: IPosition[]) {
+  return Math.atan2(positions[28][1] - positions[23][1], positions[28][0] - positions[23][0]);
+}

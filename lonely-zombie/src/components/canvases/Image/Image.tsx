@@ -1,7 +1,8 @@
-import React, { useRef, useEffect, RefObject } from 'react';
-import { IPosition } from '../../model/canvases/IVideo';
-import { circuit } from '../../services/circuit';
-import { IImage } from '../../model/canvases/IImage';
+import React, {useRef, useEffect, RefObject} from 'react';
+import './Image.css';
+
+import {IPosition} from '../../../model/canvases/IVideo';
+import {IImage} from '../../../model/canvases/IImage';
 
 const Image: React.FC<IImage> = ({width, height, outputData, src}) => {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -41,11 +42,11 @@ const Image: React.FC<IImage> = ({width, height, outputData, src}) => {
   }, []);
 
   return (
-    <>
+    <section className={'Image'}>
       <p>Image</p>
       <img ref={imageRef} id={'image'} src={src} width={width} height={height}/>
       <canvas ref={canvasRef} width={width} height={height}/>
-    </>
+    </section>
   );
 };
 

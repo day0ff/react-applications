@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect, RefObject} from 'react';
 import config from '../../../config.json';
-import graveyard from '../../../images/graveyard.jpg';
+import gotham from '../../../images/gotham.png'
+import picture from '../../../images/magnus.png'
 
 import {IGLFX} from '../../../model/canvases/IGLFX';
 import {IBackground} from '../../../model/canvases/IBackground';
@@ -21,6 +22,8 @@ import {jokerEyebrows} from '../../../services/areas/joker/joker-eybrows';
 import {jokerEyes} from '../../../services/areas/joker/joker-eyes';
 import {jokerLips} from '../../../services/areas/joker/joker-lips';
 import {jokerCircuit} from '../../../services/areas/joker/joker-circuit';
+import {IImage} from '../../../model/canvases/IImage';
+import Image from '../../../components/canvases/Image/Image';
 
 const {width, height, autoPlay, color, tolerance} = config;
 
@@ -57,6 +60,16 @@ const Joker: React.FC = () => {
     autoPlay
   };
 
+  const image: IImage = {
+    outputData: ({videoData, positions}) => {
+      setVideoData(videoData);
+      setPositionsData(positions);
+    },
+    width,
+    height,
+    src: picture
+  };
+
   const colorPicker: IColorPicker = {
     inputData: videoData,
     outputData: (color: Color) => _isMounted && setColorData(color),
@@ -66,7 +79,7 @@ const Joker: React.FC = () => {
   };
 
   const background: IBackground = {
-    img: {path: graveyard},
+    img: {path: gotham},
     inputData: videoData,
     outputData: (backgroundData) => _isMounted && setBackgroundData(backgroundData),
     width,
@@ -84,6 +97,7 @@ const Joker: React.FC = () => {
       return canvas.draw(canvas.texture(tempCanvas))
         .denoise(50)
         .unsharpMask(20, 1)
+        .brightnessContrast(-0.07, 0.21)
         .update();
     }
   };
@@ -156,7 +170,8 @@ const Joker: React.FC = () => {
   return (
     <>
       <p>Joker</p>
-      <Video {...video}/>
+      {/*<Video {...video}/>*/}
+      <Image {...image}/>
       <ColorPicker {...colorPicker}/>
       <FaceCircuit {...faceCircuit}/>
       <Mask {...mask}/>

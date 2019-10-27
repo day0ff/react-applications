@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import config from '../../../config.json';
+import picture from '../../../images/magnus.png'
 import graveyard from '../../../images/graveyard.jpg';
 
 import {IGLFX} from '../../../model/canvases/IGLFX';
@@ -20,6 +21,8 @@ import Background from '../../../components/canvases/Background/Background';
 import Result from '../../../components/canvases/Result';
 import {zombieChin} from '../../../services/deformations/zombie/zombie-chin';
 import {zombieEyes} from '../../../services/deformations/zombie/zombie-eyes';
+import {IImage} from '../../../model/canvases/IImage';
+import Image from '../../../components/canvases/Image/Image';
 
 const {width, height, autoPlay, color, tolerance} = config;
 
@@ -54,6 +57,16 @@ const Zombie: React.FC = () => {
     autoPlay
   };
 
+  const image: IImage = {
+    outputData: ({videoData, positions}) => {
+      setVideoData(videoData);
+      setPositionsData(positions);
+    },
+    width,
+    height,
+    src: picture
+  };
+
   const colorPicker: IColorPicker = {
     inputData: videoData,
     outputData: (color: Color) => _isMounted && setColorData(color),
@@ -81,6 +94,7 @@ const Zombie: React.FC = () => {
       return canvas.draw(canvas.texture(tempCanvas))
         .denoise(50)
         .unsharpMask(20, 1)
+        .hueSaturation(0.4, -0.3)
         .update();
     }
   };
@@ -111,7 +125,8 @@ const Zombie: React.FC = () => {
   return (
     <>
       <p>Zombie</p>
-      <Video {...video}/>
+      {/*<Video {...video}/>*/}
+      <Image {...image}/>
       <ColorPicker {...colorPicker}/>
       <FaceCircuit {...faceCircuit}/>
       <Deformer {...deformer}/>
