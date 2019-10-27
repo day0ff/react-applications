@@ -16,8 +16,6 @@ import Deformer from '../../../components/canvases/Deformer/Deformer';
 import Background from '../../../components/canvases/Background/Background';
 import Result from '../../../components/canvases/Result';
 import {witchNose} from '../../../services/deformations/witch/witch-nose';
-import {witchChin} from '../../../services/deformations/witch/witch-chin';
-import {witchLips} from '../../../services/deformations/witch/witch-lips';
 
 const {width, height, autoPlay, color, tolerance} = config;
 
