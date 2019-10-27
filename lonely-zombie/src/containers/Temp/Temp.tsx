@@ -16,12 +16,12 @@ import ColorPicker, {Color, IColorPicker} from '../../components/canvases/ColorP
 import GLFX from '../../components/canvases/GLFX';
 import {IGLFX} from '../../model/canvases/IGLFX';
 import Video from '../../components/Video/Video';
-import Deformer from '../../components/canvases/Deformer';
+import Deformer from '../../components/canvases/Deformer/Deformer';
 import {IDeformer} from '../../model/canvases/IDeformer';
 import Mask from '../../components/canvases/Mask';
 import {IMask} from '../../model/canvases/IMask';
 import {eyePath} from '../../services/areas/eye';
-import {nose} from '../../services/deformations/nose';
+import {witchNose} from '../../services/deformations/witch/witch-nose';
 import {chin} from '../../services/deformations/chin';
 
 const {width, height, autoPlay, color, tolerance} = config;
@@ -138,7 +138,7 @@ const Temp: React.FC = () => {
     width,
     height,
     positions: positionsData!,
-    deformations: [nose, chin]
+    deformations: [witchNose, chin]
   };
 
   const result: IResult = {

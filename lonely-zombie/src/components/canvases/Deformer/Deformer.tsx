@@ -1,5 +1,6 @@
 import React, {useRef, useEffect, RefObject} from 'react';
-import {IDeformer} from '../../model/canvases/IDeformer';
+import './Deformer.css';
+import {IDeformer} from '../../../model/canvases/IDeformer';
 
 const deformer = window.fx.canvas();
 
@@ -26,7 +27,7 @@ const Deformer: React.FC<IDeformer> = ({width, height, inputData, outputData, po
   }, [inputData]);
 
   return (
-    <section>
+    <section className={'Deformer'}>
       <p>Deformer</p>
       <canvas ref={canvasRef} width={width} height={height}/>
     </section>

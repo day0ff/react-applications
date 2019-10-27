@@ -2,26 +2,28 @@ import React, {useState, useRef, useEffect, RefObject} from 'react';
 import config from '../../../config.json';
 import graveyard from '../../../images/graveyard.jpg';
 
+import {chin} from '../../../services/deformations/chin';
 import {IGLFX} from '../../../model/canvases/IGLFX';
 import {IBackground} from '../../../model/canvases/IBackground';
-import {IDeformation, IDeformer} from '../../../model/canvases/IDeformer';
+import {IDeformer} from '../../../model/canvases/IDeformer';
 import {IResult} from '../../../model/canvases/IResult';
+import {IMask} from '../../../model/canvases/IMask';
 import {IPosition, IVideo} from '../../../model/canvases/IVideo';
+import {witchNose} from '../../../services/deformations/witch/witch-nose';
 import {Color, default as ColorPicker, IColorPicker} from '../../../components/canvases/ColorPicker/ColorPicker';
 import {IFaceCircuit} from '../../../model/canvases/IFaceCircuit';
+import {eyePath} from '../../../services/areas/eye';
 import Video from '../../../components/Video/Video';
 import FaceCircuit from '../../../components/canvases/FaceCircuit/FaceCircuit';
+import Mask from '../../../components/canvases/Mask';
 import GLFX from '../../../components/canvases/GLFX';
 import Deformer from '../../../components/canvases/Deformer/Deformer';
 import Background from '../../../components/canvases/Background/Background';
 import Result from '../../../components/canvases/Result';
-import {witchNose} from '../../../services/deformations/witch/witch-nose';
-import {witchChin} from '../../../services/deformations/witch/witch-chin';
-import {witchLips} from '../../../services/deformations/witch/witch-lips';
 
 const {width, height, autoPlay, color, tolerance} = config;
 
-const Witch: React.FC = () => {
+const Frankenstein: React.FC = () => {
   let _isMounted = true;
 
   const [videoData, setVideoData] = useState<ImageData>();
@@ -34,6 +36,8 @@ const Witch: React.FC = () => {
   const [colorData, setColorData] = useState<Color>(color);
   const [toleranceData, setToleranceData] = useState<number>(tolerance);
   const [deformerData, setDeformerData] = useState<ImageData>();
+  const [maskData, setMaskData] = useState<ImageData>();
+  const [glfxMaskData, setGlfxMaskData] = useState<ImageData>();
 
   useEffect(() => {
     return () => {
@@ -79,7 +83,6 @@ const Witch: React.FC = () => {
       return canvas.draw(canvas.texture(tempCanvas))
         .denoise(50)
         .unsharpMask(20, 1)
-        // .hueSaturation(0.1, 0.5)
         .update();
     }
   };
@@ -92,14 +95,44 @@ const Witch: React.FC = () => {
     height
   };
 
+  const mask: IMask = {
+    inputData: faceCircuitData,
+    outputData: (maskData) => _isMounted && setMaskData(maskData),
+    width,
+    height,
+    mask: {
+      background: {r: 100, g: 100, b: 100, a: 1},
+      areas: [
+        {
+          path: eyePath,
+          color: {r: 255, g: 0, b: 0, a: 0.7}
+        }
+      ]
+    },
+    positions: positionsData!
+  };
+
+  const glfxMask: IGLFX = {
+    inputData: maskData,
+    outputData: (glfxMaskData) => _isMounted && setGlfxMaskData(glfxMaskData),
+    width,
+    height,
+    filter: (canvas, tempCanvas) => {
+      return canvas.draw(canvas.texture(tempCanvas))
+        .denoise(50)
+        .unsharpMask(20, 1)
+        .hueSaturation(0.5, 0.3)
+        .update();
+    }
+  };
 
   const deformer: IDeformer = {
-    inputData: faceCircuitData,
+    inputData: glfxMaskData,
     outputData: (deformerData) => _isMounted && setDeformerData(deformerData),
     width,
     height,
     positions: positionsData!,
-    deformations: [witchNose]
+    deformations: [witchNose, chin]
   };
 
   const result: IResult = {
@@ -108,13 +141,14 @@ const Witch: React.FC = () => {
     height
   };
 
-
   return (
     <>
       <p>Witch</p>
       <Video {...video}/>
       <ColorPicker {...colorPicker}/>
       <FaceCircuit {...faceCircuit}/>
+      <Mask {...mask}/>
+      <GLFX {...glfxMask}/>
       <Deformer {...deformer}/>
       <Background {...background}/>
       <GLFX {...glfxBackground}/>
@@ -123,4 +157,4 @@ const Witch: React.FC = () => {
   );
 };
 
-export default Witch;
+export default Frankenstein;
