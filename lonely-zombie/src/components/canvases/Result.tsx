@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect, RefObject } from 'react';
-import { IResult } from '../../model/canvases/IResult';
+import React, {useState, useRef, useEffect, RefObject} from 'react';
+import {IResult} from '../../model/canvases/IResult';
 
-const Result: React.FC<IResult> = ({width, height, name, inputData}) => {
+const Result: React.FC<IResult> = ({width, height, inputData}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -21,10 +21,9 @@ const Result: React.FC<IResult> = ({width, height, name, inputData}) => {
   }, [inputData]);
 
   return (
-    <>
-      <p>Result</p>
-      <canvas ref={canvasRef} id={name} width={width} height={height}/>
-    </>
+    <section className={'Result'}>
+      <canvas ref={canvasRef} id={'result'} width={width} height={height}/>
+    </section>
   );
 };
 

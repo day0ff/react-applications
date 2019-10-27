@@ -1,5 +1,6 @@
 import {ICanvas} from '../ICanvas';
-import {Color} from '../../containers/ColorPicker/ColorPicker';
+import {Color} from '../../components/canvases/ColorPicker/ColorPicker';
+
 
 export interface IBackground extends ICanvas<ImageData, ImageData> {
   img: {

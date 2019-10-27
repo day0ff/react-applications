@@ -1,5 +1,6 @@
 import React, {RefObject, useState, useEffect, useRef, MouseEvent} from 'react';
-import {ICanvas} from '../../model/ICanvas';
+import './ColorPicker.css';
+import {ICanvas} from '../../../model/ICanvas';
 
 const ColorPickerWidth = 30;
 const ColorPickerHeight = 30;
@@ -15,7 +16,7 @@ export interface IColorPicker extends ICanvas<ImageData, Color> {
   color: Color;
 }
 
-const ColorPicker: React.FC<IColorPicker> = ({width, height, name, inputData, outputData, color}) => {
+const ColorPicker: React.FC<IColorPicker> = ({width, height, inputData, outputData, color}) => {
   const [pixelColor, setPixelColor] = useState(color);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -61,12 +62,12 @@ const ColorPicker: React.FC<IColorPicker> = ({width, height, name, inputData, ou
   };
 
   return (
-    <>
+    <section className={'ColorPicker'}>
       <p>ColorPicker</p>
-      <canvas ref={canvasRef} id={name} width={width} height={height} onClick={sendPixelColor}
+      <canvas ref={canvasRef} width={width} height={height} onClick={sendPixelColor}
               onMouseMove={handleMouseMove}/>
-      <canvas ref={canvasColorPixelRef} id={name + '-color'} width={ColorPickerWidth} height={ColorPickerHeight}/>
-    </>
+      <canvas ref={canvasColorPixelRef} id={'color'} width={ColorPickerWidth} height={ColorPickerHeight}/>
+    </section>
   );
 };
 

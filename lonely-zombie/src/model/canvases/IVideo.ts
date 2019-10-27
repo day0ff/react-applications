@@ -8,6 +8,5 @@ export interface IVideoData {
 }
 
 export interface IVideo extends ICanvas<undefined, IVideoData> {
-  name: 'video';
   autoPlay: boolean;
 }

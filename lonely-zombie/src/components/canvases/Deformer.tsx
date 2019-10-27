@@ -3,7 +3,7 @@ import {IDeformer} from '../../model/canvases/IDeformer';
 
 const deformer = window.fx.canvas();
 
-const Deformer: React.FC<IDeformer> = ({name, width, height, inputData, outputData, positions, deformations}) => {
+const Deformer: React.FC<IDeformer> = ({width, height, inputData, outputData, positions, deformations}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -26,10 +26,10 @@ const Deformer: React.FC<IDeformer> = ({name, width, height, inputData, outputDa
   }, [inputData]);
 
   return (
-    <>
+    <section>
       <p>Deformer</p>
-      <canvas ref={canvasRef} id={name} width={width} height={height}/>
-    </>
+      <canvas ref={canvasRef} width={width} height={height}/>
+    </section>
   );
 
 };

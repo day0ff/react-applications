@@ -1,6 +1,6 @@
 import {ICanvas} from '../ICanvas';
 import {IPosition} from './IVideo';
-import {Color} from '../../containers/ColorPicker/ColorPicker';
+import {Color} from '../../components/canvases/ColorPicker/ColorPicker';
 
 export interface IPath {
   (points: IPosition[], context: CanvasRenderingContext2D): CanvasRenderingContext2D

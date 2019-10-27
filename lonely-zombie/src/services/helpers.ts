@@ -1,5 +1,5 @@
 import {IPosition} from '../model/canvases/IVideo';
-import {Color} from '../containers/ColorPicker/ColorPicker';
+import {Color} from '../components/canvases/ColorPicker/ColorPicker';
 
 export function fillFace(positions: IPosition[], canvasContext: CanvasRenderingContext2D) {
   canvasContext.beginPath();

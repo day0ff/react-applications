@@ -3,7 +3,7 @@ import { IPosition } from '../../model/canvases/IVideo';
 import { circuit } from '../../services/circuit';
 import { IImage } from '../../model/canvases/IImage';
 
-const Image: React.FC<IImage> = ({width, height, name, outputData, src}) => {
+const Image: React.FC<IImage> = ({width, height, outputData, src}) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -43,8 +43,8 @@ const Image: React.FC<IImage> = ({width, height, name, outputData, src}) => {
   return (
     <>
       <p>Image</p>
-      <img ref={imageRef} id={name + '-image'} src={src} width={width} height={height}/>
-      <canvas ref={canvasRef} id={name} width={width} height={height}/>
+      <img ref={imageRef} id={'image'} src={src} width={width} height={height}/>
+      <canvas ref={canvasRef} width={width} height={height}/>
     </>
   );
 };

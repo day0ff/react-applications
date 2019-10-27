@@ -1,8 +1,9 @@
 import React, {forwardRef, useEffect, RefObject, useRef} from 'react';
-import {IFaceCircuit} from '../../model/canvases/IFaceCircuit';
-import {fillFace} from '../../services/helpers';
+import './FaceCircuit.css';
+import {IFaceCircuit} from '../../../model/canvases/IFaceCircuit';
+import {fillFace} from '../../../services/helpers';
 
-const FaceCircuit: React.FC<IFaceCircuit> = ({width, height, name, inputData, outputData, positions}) => {
+const FaceCircuit: React.FC<IFaceCircuit> = ({width, height, inputData, outputData, positions}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -18,7 +19,6 @@ const FaceCircuit: React.FC<IFaceCircuit> = ({width, height, name, inputData, ou
     if (positions) {
       canvasContext.clearRect(0, 0, width, height);
       canvasContext.save();
-      // canvasContext.globalAlpha = 0.7;
       fillFace(positions, canvasContext);
       canvasContext.drawImage(tempCanvas, 0, 0, width, height);
       canvasContext.restore();
@@ -30,10 +30,10 @@ const FaceCircuit: React.FC<IFaceCircuit> = ({width, height, name, inputData, ou
   }, [inputData]);
 
   return (
-    <>
+    <section className={'FaceCircuit'}>
       <p>FaceCircuit</p>
-      <canvas ref={canvasRef} id={name} width={width} height={height}/>
-    </>
+      <canvas ref={canvasRef} width={width} height={height}/>
+    </section>
   );
 };
 

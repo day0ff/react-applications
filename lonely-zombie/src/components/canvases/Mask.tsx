@@ -2,7 +2,7 @@ import React, {useRef, useEffect, RefObject} from 'react';
 import {IMask} from '../../model/canvases/IMask';
 import {rgba} from '../../services/helpers';
 
-const Mask: React.FC<IMask> = ({name, width, height, inputData, outputData, mask, positions}) => {
+const Mask: React.FC<IMask> = ({width, height, inputData, outputData, mask, positions}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -47,10 +47,10 @@ const Mask: React.FC<IMask> = ({name, width, height, inputData, outputData, mask
   }, [inputData]);
 
   return (
-    <>
+    <section>
       <p>Mask</p>
-      <canvas ref={canvasRef} id={name} width={width} height={height}/>
-    </>
+      <canvas ref={canvasRef} width={width} height={height}/>
+    </section>
   );
 
 };

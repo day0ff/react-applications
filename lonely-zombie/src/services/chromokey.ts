@@ -1,4 +1,4 @@
-import {Color,} from '../containers/ColorPicker/ColorPicker';
+import {Color,} from '../components/canvases/ColorPicker/ColorPicker';
 
 export function chromokey(imageData: ImageData, color: Color, tolerance: number) {
   let l = imageData.data.length / 4;

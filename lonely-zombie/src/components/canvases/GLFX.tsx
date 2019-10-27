@@ -3,7 +3,14 @@ import {IGLFX} from '../../model/canvases/IGLFX';
 
 const canvas = window.fx.canvas();
 
-const GLFX: React.FC<IGLFX> = ({name, width, height, inputData, outputData, filter}) => {
+const GLFX: React.FC<IGLFX> = ({width, height, inputData, outputData, filter}) => {
+
+  useEffect(() => {
+    return () => {
+      canvas.remove();
+      console.log('GLFX will unmount.');
+    }
+  }, []);
 
   useEffect(() => {
     if (inputData) {
