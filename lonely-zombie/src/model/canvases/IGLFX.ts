@@ -6,7 +6,11 @@ declare global {
   }
 }
 
+export interface IFilter {
+  (canvas: any, tempCanvas: HTMLCanvasElement): HTMLCanvasElement;
+}
+
 export interface IGLFX extends ICanvas<ImageData, ImageData> {
-  filter: (canvas: any, tempCanvas: HTMLCanvasElement) => HTMLCanvasElement;
+  filter: IFilter;
 }
 

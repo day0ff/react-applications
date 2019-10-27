@@ -21,6 +21,8 @@ import {IDeformer} from '../../model/canvases/IDeformer';
 import Mask from '../../components/canvases/Mask';
 import {IMask} from '../../model/canvases/IMask';
 import {eyePath} from '../../services/areas/eye';
+import {nose} from '../../services/deformations/nose';
+import {chin} from '../../services/deformations/chin';
 
 const {width, height, autoPlay, color, tolerance} = config;
 
@@ -144,7 +146,8 @@ const App: React.FC = () => {
     outputData: (deformerData) => setDeformerData(deformerData),
     width,
     height,
-    positions: {before: positionsData!, after: positionsData!}
+    positions: positionsData!,
+    deformations: [nose, chin]
   };
 
   const result: IResult = {

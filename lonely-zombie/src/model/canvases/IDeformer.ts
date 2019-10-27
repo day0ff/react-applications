@@ -1,5 +1,7 @@
 import {ICanvas} from '../ICanvas';
 import {IPosition} from './IVideo';
+import {IPath} from './IMask';
+import {IFilter} from './IGLFX';
 
 declare global {
   interface Window {
@@ -7,6 +9,11 @@ declare global {
   }
 }
 
+export interface IDeformation {
+  (canvas: any, tempCanvas: HTMLCanvasElement, positions: IPosition[]): HTMLCanvasElement;
+}
+
 export interface IDeformer extends ICanvas<ImageData, ImageData> {
-  positions: { before: IPosition[], after: IPosition[] };
+  positions: IPosition[];
+  deformations: IDeformation[];
 }
