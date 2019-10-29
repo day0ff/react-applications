@@ -1,136 +1,42 @@
-import React, {useState, useRef, useEffect, RefObject} from 'react';
-import config from '../../../config.json';
-import picture from '../../../images/magnus.png'
+import React, { useState, useRef, useEffect, RefObject } from 'react';
 import witch from '../../../images/witch2.jpg';
 
-import {IGLFX} from '../../../model/canvases/IGLFX';
-import {IBackground} from '../../../model/canvases/IBackground';
-import {IDeformation, IDeformer} from '../../../model/canvases/IDeformer';
-import {IResult} from '../../../model/canvases/IResult';
-import {IPosition, IVideo} from '../../../model/canvases/IVideo';
-import {Color, default as ColorPicker, IColorPicker} from '../../../components/canvases/ColorPicker/ColorPicker';
-import {IFaceCircuit} from '../../../model/canvases/IFaceCircuit';
-import Video from '../../../components/Video/Video';
-import FaceCircuit from '../../../components/canvases/FaceCircuit/FaceCircuit';
-import GLFX from '../../../components/canvases/GLFX';
+import { IFilter } from '../../../model/canvases/IGLFX';
+import { IDeformer } from '../../../model/canvases/IDeformer';
 import Deformer from '../../../components/canvases/Deformer/Deformer';
-import Background from '../../../components/canvases/Background/Background';
-import Result from '../../../components/canvases/Result';
-import {witchNose} from '../../../services/deformations/witch/witch-nose';
-import {IImage} from '../../../model/canvases/IImage';
-import Image from '../../../components/canvases/Image/Image';
+import { witchNose } from '../../../services/deformations/witch/witch-nose';
+import { ICharacter } from '../../Article/Article';
 
-const {width, height, autoPlay, color, tolerance} = config;
-
-const Witch: React.FC = () => {
-  let _isMounted = true;
-
-  const [videoData, setVideoData] = useState<ImageData>();
-  const [positionsData, setPositionsData] = useState<IPosition[]>();
-
-  const [backgroundData, setBackgroundData] = useState<ImageData>();
-  const [glfxBackgroundData, setGlfxBackgroundData] = useState<ImageData>();
-
-  const [faceCircuitData, setFaceCircuitData] = useState<ImageData>();
-  const [colorData, setColorData] = useState<Color>(color);
-  const [toleranceData, setToleranceData] = useState<number>(tolerance);
-  const [deformerData, setDeformerData] = useState<ImageData>();
+const Witch: React.FC<ICharacter> = ({imgPath, backgroundFilter, width, height, inputData, positions, outputData}) => {
+  const filter: IFilter = (canvas, tempCanvas) => {
+    return canvas && canvas.draw(canvas.texture(tempCanvas))
+      .denoise(50)
+      .unsharpMask(20, 1)
+      .hueSaturation(0.1, 0.5)
+      .update();
+  };
 
   useEffect(() => {
+    imgPath(witch);
+    backgroundFilter!(filter);
     return () => {
-      _isMounted = false;
-      console.log('Witch unmount. ', _isMounted);
+      console.log('Witch un mount.',);
     }
   }, []);
 
-  const video: IVideo = {
-    outputData: ({videoData, positions}) => {
-      _isMounted && setVideoData(videoData);
-      _isMounted && setPositionsData(positions);
-    },
-    width,
-    height,
-    autoPlay
-  };
-
-  const image: IImage = {
-    outputData: ({videoData, positions}) => {
-      setVideoData(videoData);
-      setPositionsData(positions);
-    },
-    width,
-    height,
-    src: picture
-  };
-
-  const colorPicker: IColorPicker = {
-    inputData: videoData,
-    outputData: (color: Color) => _isMounted && setColorData(color),
-    width,
-    height,
-    color
-  };
-
-  const background: IBackground = {
-    img: {path: witch},
-    inputData: videoData,
-    outputData: (backgroundData) => _isMounted && setBackgroundData(backgroundData),
-    width,
-    height,
-    color: colorData,
-    tolerance: toleranceData
-  };
-
-  const glfxBackground: IGLFX = {
-    inputData: backgroundData,
-    outputData: (glfxData) => _isMounted && setGlfxBackgroundData(glfxData),
-    width,
-    height,
-    filter: (canvas, tempCanvas) => {
-      return canvas.draw(canvas.texture(tempCanvas))
-        .denoise(50)
-        .unsharpMask(20, 1)
-        .hueSaturation(0.1, 0.5)
-        .update();
-    }
-  };
-
-  const faceCircuit: IFaceCircuit = {
-    inputData: videoData,
-    outputData: (faceCircuitData) => _isMounted && setFaceCircuitData(faceCircuitData),
-    positions: positionsData,
-    width,
-    height
-  };
-
-
   const deformer: IDeformer = {
-    inputData: faceCircuitData,
-    outputData: (deformerData) => _isMounted && setDeformerData(deformerData),
+    inputData: inputData,
+    outputData: (deformerData) => outputData(deformerData),
     width,
     height,
-    positions: positionsData!,
+    positions: positions!,
     deformations: [witchNose]
   };
-
-  const result: IResult = {
-    inputData: [glfxBackgroundData as ImageData, deformerData as ImageData],
-    width,
-    height
-  };
-
 
   return (
     <>
       <p>Witch</p>
-      {/*<Video {...video}/>*/}
-      <Image {...image}/>
-      <ColorPicker {...colorPicker}/>
-      <FaceCircuit {...faceCircuit}/>
       <Deformer {...deformer}/>
-      <Background {...background}/>
-      <GLFX {...glfxBackground}/>
-      <Result {...result}/>
     </>
   );
 };

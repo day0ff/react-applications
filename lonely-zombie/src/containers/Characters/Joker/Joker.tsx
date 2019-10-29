@@ -1,118 +1,40 @@
-import React, {useState, useRef, useEffect, RefObject} from 'react';
-import config from '../../../config.json';
+import React, { useState, useRef, useEffect, RefObject } from 'react';
 import gotham from '../../../images/gotham.png'
-import picture from '../../../images/magnus.png'
 
-import {IGLFX} from '../../../model/canvases/IGLFX';
-import {IBackground} from '../../../model/canvases/IBackground';
-import {IResult} from '../../../model/canvases/IResult';
-import {IMask} from '../../../model/canvases/IMask';
-import {IPosition, IVideo} from '../../../model/canvases/IVideo';
-import {Color, default as ColorPicker, IColorPicker} from '../../../components/canvases/ColorPicker/ColorPicker';
-import {IFaceCircuit} from '../../../model/canvases/IFaceCircuit';
-import Video from '../../../components/Video/Video';
-import FaceCircuit from '../../../components/canvases/FaceCircuit/FaceCircuit';
+import { IFilter, IGLFX } from '../../../model/canvases/IGLFX';
+import { IMask } from '../../../model/canvases/IMask';
 import Mask from '../../../components/canvases/Mask/Mask';
 import GLFX from '../../../components/canvases/GLFX';
-import Background from '../../../components/canvases/Background/Background';
-import Result from '../../../components/canvases/Result';
-import {jpkerNose} from '../../../services/areas/joker/joker-nose';
-import {jokerEyebrowsTriangle} from '../../../services/areas/joker/joker-eyebrows-triangle';
-import {jokerEyebrows} from '../../../services/areas/joker/joker-eybrows';
-import {jokerEyes} from '../../../services/areas/joker/joker-eyes';
-import {jokerLips} from '../../../services/areas/joker/joker-lips';
-import {jokerCircuit} from '../../../services/areas/joker/joker-circuit';
-import {IImage} from '../../../model/canvases/IImage';
-import Image from '../../../components/canvases/Image/Image';
+import { jpkerNose } from '../../../services/areas/joker/joker-nose';
+import { jokerEyebrowsTriangle } from '../../../services/areas/joker/joker-eyebrows-triangle';
+import { jokerEyebrows } from '../../../services/areas/joker/joker-eybrows';
+import { jokerEyes } from '../../../services/areas/joker/joker-eyes';
+import { jokerLips } from '../../../services/areas/joker/joker-lips';
+import { jokerCircuit } from '../../../services/areas/joker/joker-circuit';
+import { ICharacter } from '../../Article/Article';
 
-const {width, height, autoPlay, color, tolerance} = config;
-
-const Joker: React.FC = () => {
-  let _isMounted = true;
-
-  const [videoData, setVideoData] = useState<ImageData>();
-  const [positionsData, setPositionsData] = useState<IPosition[]>();
-
-  const [backgroundData, setBackgroundData] = useState<ImageData>();
-  const [glfxBackgroundData, setGlfxBackgroundData] = useState<ImageData>();
-
-  const [faceCircuitData, setFaceCircuitData] = useState<ImageData>();
-  const [colorData, setColorData] = useState<Color>(color);
-  const [toleranceData, setToleranceData] = useState<number>(tolerance);
-
+const Joker: React.FC<ICharacter> = ({imgPath, backgroundFilter, width, height, inputData, positions, outputData}) => {
   const [maskData, setMaskData] = useState<ImageData>();
-  const [glfxMaskData, setGlfxMaskData] = useState<ImageData>();
+
+  const filter: IFilter = (canvas, tempCanvas) => {
+    return canvas && canvas.draw(canvas.texture(tempCanvas))
+      .denoise(50)
+      .unsharpMask(20, 1)
+      .brightnessContrast(-0.07, 0.21)
+      .update();
+  };
 
   useEffect(() => {
+    imgPath(gotham);
+    backgroundFilter!(filter);
     return () => {
-      _isMounted = false;
-      console.log('Witch unmount. ', _isMounted);
+      console.log('Joker un mount. ');
     }
   }, []);
 
-  const video: IVideo = {
-    outputData: ({videoData, positions}) => {
-      _isMounted && setVideoData(videoData);
-      _isMounted && setPositionsData(positions);
-    },
-    width,
-    height,
-    autoPlay
-  };
-
-  const image: IImage = {
-    outputData: ({videoData, positions}) => {
-      setVideoData(videoData);
-      setPositionsData(positions);
-    },
-    width,
-    height,
-    src: picture
-  };
-
-  const colorPicker: IColorPicker = {
-    inputData: videoData,
-    outputData: (color: Color) => _isMounted && setColorData(color),
-    width,
-    height,
-    color
-  };
-
-  const background: IBackground = {
-    img: {path: gotham},
-    inputData: videoData,
-    outputData: (backgroundData) => _isMounted && setBackgroundData(backgroundData),
-    width,
-    height,
-    color: colorData,
-    tolerance: toleranceData
-  };
-
-  const glfxBackground: IGLFX = {
-    inputData: backgroundData,
-    outputData: (glfxData) => _isMounted && setGlfxBackgroundData(glfxData),
-    width,
-    height,
-    filter: (canvas, tempCanvas) => {
-      return canvas.draw(canvas.texture(tempCanvas))
-        .denoise(50)
-        .unsharpMask(20, 1)
-        .brightnessContrast(-0.07, 0.21)
-        .update();
-    }
-  };
-
-  const faceCircuit: IFaceCircuit = {
-    inputData: videoData,
-    outputData: (faceCircuitData) => _isMounted && setFaceCircuitData(faceCircuitData),
-    positions: positionsData,
-    width,
-    height
-  };
-
   const mask: IMask = {
-    inputData: faceCircuitData,
-    outputData: (maskData) => _isMounted && setMaskData(maskData),
+    inputData,
+    outputData: (maskData) => setMaskData(maskData),
     width,
     height,
     mask: {
@@ -144,12 +66,12 @@ const Joker: React.FC = () => {
         }
       ]
     },
-    positions: positionsData!
+    positions
   };
 
   const glfxMask: IGLFX = {
     inputData: maskData,
-    outputData: (glfxMaskData) => _isMounted && setGlfxMaskData(glfxMaskData),
+    outputData: (glfxMaskData) => outputData(glfxMaskData),
     width,
     height,
     filter: (canvas, tempCanvas) => {
@@ -161,24 +83,11 @@ const Joker: React.FC = () => {
     }
   };
 
-  const result: IResult = {
-    inputData: [glfxBackgroundData!, glfxMaskData!],
-    width,
-    height
-  };
-
   return (
     <>
       <p>Joker</p>
-      {/*<Video {...video}/>*/}
-      <Image {...image}/>
-      <ColorPicker {...colorPicker}/>
-      <FaceCircuit {...faceCircuit}/>
       <Mask {...mask}/>
       <GLFX {...glfxMask}/>
-      <Background {...background}/>
-      <GLFX {...glfxBackground}/>
-      <Result {...result}/>
     </>
   );
 };

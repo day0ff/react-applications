@@ -8,5 +8,6 @@
     "b": 51,
     "a": 1
   },
-  "tolerance": 150
+  "tolerance": 150,
+  "character":"ZOMBIE"
 }
