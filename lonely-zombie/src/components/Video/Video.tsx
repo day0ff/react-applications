@@ -76,10 +76,11 @@ const Video: React.FC<IVideo> = ({width, height, outputData, autoPlay}) => {
   }, []);
 
   return (
-    <section className={'Video'}>
+    <div className={'Video'}>
+      <p>Grid Mask</p>
       <video ref={videoRef} width={width} height={height} autoPlay={autoPlay}/>
       <canvas ref={canvasRef} width={width} height={height}/>
-    </section>
+    </div>
   );
 };
 

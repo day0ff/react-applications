@@ -19,6 +19,11 @@ import {IResult} from '../../model/canvases/IResult';
 import Background from '../../components/canvases/Background/Background';
 import {IDimensions} from '../../model/IDimensions';
 
+export interface IArticle {
+  isChromaKeyShown: boolean,
+  isGridMaskShown: boolean
+}
+
 export interface ICharacter extends IDimensions {
   imgPath: (imgPath: string) => void;
   inputVideo: ImageData;
@@ -31,7 +36,7 @@ const {width, height, autoPlay, color, tolerance, character: hero} = config;
 
 const ZOMBIE = 'ZOMBIE', WITCH = 'WITCH', JOKER = 'JOKER', DEFAULT = 'DEFAULT';
 
-const Article: React.FC = () => {
+const Article: React.FC<IArticle> = ({isChromaKeyShown, isGridMaskShown}) => {
   const CHARACTERS = [ZOMBIE, WITCH, JOKER];
 
   const [currentCharacter, setCurrentCharacter] = useState<string>(hero);
@@ -79,10 +84,11 @@ const Article: React.FC = () => {
 
   const colorPicker: IColorPicker = {
     inputData: videoData,
-    outputData: (color: Color) => setColorData(color),
+    outputData: (data: Color | number) => typeof data == 'object' ? setColorData(data) : setToleranceData(+data),
     width,
     height,
-    color
+    color,
+    toleranceData
   };
 
   const background: IBackground = {
@@ -125,11 +131,15 @@ const Article: React.FC = () => {
   const getCharacter = () => (literalSwitch[currentCharacter] || literalSwitch['DEFAULT'])(character);
 
   return (
-    <article>
-      <Video {...video}/>
+    <article className={'Article'}>
+      <section className={isGridMaskShown ? 'show' : 'hidden'}>
+        <Video {...video}/>
+      </section>
       {/*<Image {...image}/>*/}
       <FaceCircuit {...faceCircuit}/>
-      <ColorPicker {...colorPicker}/>
+      <section className={isChromaKeyShown ? 'show' : 'hidden'}>
+        <ColorPicker {...colorPicker}/>
+      </section>
       <Background {...background}/>
 
       {getCharacter()}

@@ -1,3 +1,7 @@
 .Video {
+    display: block;
+}
+
+.Video video {
     display: none;
 }

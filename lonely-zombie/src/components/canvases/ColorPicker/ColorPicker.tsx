@@ -12,12 +12,14 @@ export interface Color {
   a: number;
 }
 
-export interface IColorPicker extends ICanvas<ImageData, Color> {
+export interface IColorPicker extends ICanvas<ImageData, Color | number> {
   color: Color;
+  toleranceData: number;
 }
 
-const ColorPicker: React.FC<IColorPicker> = ({width, height, inputData, outputData, color}) => {
+const ColorPicker: React.FC<IColorPicker> = ({width, height, inputData, outputData, color, toleranceData}) => {
   const [pixelColor, setPixelColor] = useState(color);
+  const [tolerance, setTolerance] = useState(toleranceData);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasColorPixelRef = useRef<HTMLCanvasElement>(null);
@@ -37,7 +39,14 @@ const ColorPicker: React.FC<IColorPicker> = ({width, height, inputData, outputDa
   }, [inputData]);
 
   const sendPixelColor = () => {
-    outputData && outputData(pixelColor);
+    outputData!(pixelColor);
+  };
+
+  const toleranceChange = (event: any) => {
+    event.preventDefault();
+    event.persist();
+    setTolerance(+event.target.value);
+    outputData!(+event.target.value);
   };
 
   const handleMouseMove = (event: MouseEvent) => {
@@ -62,12 +71,13 @@ const ColorPicker: React.FC<IColorPicker> = ({width, height, inputData, outputDa
   };
 
   return (
-    <section className={'ColorPicker'}>
-      <p>ColorPicker</p>
+    <div className={'ColorPicker'}>
+      <p>Chroma Key</p>
       <canvas ref={canvasRef} width={width} height={height} onClick={sendPixelColor}
               onMouseMove={handleMouseMove}/>
       <canvas ref={canvasColorPixelRef} id={'color'} width={ColorPickerWidth} height={ColorPickerHeight}/>
-    </section>
+      <input type="range" min="0" max="500" value={tolerance} onChange={toleranceChange}/>
+    </div>
   );
 };
 

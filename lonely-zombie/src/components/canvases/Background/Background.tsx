@@ -1,7 +1,7 @@
-import React, { forwardRef, useState, useEffect, RefObject, useRef } from 'react';
+import React, {forwardRef, useState, useEffect, RefObject, useRef} from 'react';
 import './Background.css'
-import { IBackground } from '../../../model/canvases/IBackground';
-import { chromokey } from '../../../services/chromokey';
+import {IBackground} from '../../../model/canvases/IBackground';
+import {chromokey} from '../../../services/chromokey';
 
 const Background: React.FC<IBackground> = ({width, height, img, inputData, outputData, color, tolerance}) => {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -18,7 +18,7 @@ const Background: React.FC<IBackground> = ({width, height, img, inputData, outpu
     canvasContextResult.drawImage(imageElement, 0, 0, width, height);
 
     if (inputData) {
-      canvasContext.putImageData(chromokey(inputData, color, tolerance), 0, 0);
+      canvasContext.putImageData(chromokey(inputData, color, +tolerance), 0, 0);
       canvasContextResult.drawImage(canvasElement, 0, 0, width, height)
     }
 
