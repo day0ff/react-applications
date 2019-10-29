@@ -1,10 +1,9 @@
-import React, { useRef, useEffect, RefObject } from 'react';
-import { IGLFX } from '../../model/canvases/IGLFX';
+import React, {useRef, useState, useEffect, RefObject} from 'react';
+import {IGLFX} from '../../model/canvases/IGLFX';
 
 const glfx = window.fx.canvas();
 
 const GLFX: React.FC<IGLFX> = ({width, height, inputData, outputData, filter}) => {
-
   useEffect(() => {
     return () => {
       console.log('GLFX will un mount.');
@@ -20,14 +19,13 @@ const GLFX: React.FC<IGLFX> = ({width, height, inputData, outputData, filter}) =
 
       tempContext.putImageData(inputData, 0, 0);
 
-      console.log(filter, glfx);
-      filter && tempContext.drawImage(filter(glfx as any, tempCanvas), 0, 0);
+      tempContext.drawImage(filter(glfx, tempCanvas), 0, 0);
 
       const imageData = tempContext.getImageData(0, 0, width, height);
 
       outputData && outputData(imageData)
     }
-  }, [inputData, filter]);
+  }, [inputData]);
 
   return null;
 

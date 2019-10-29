@@ -1,19 +1,20 @@
-import React, { useState, useRef, useEffect, RefObject } from 'react';
+import React, {useState, useRef, useEffect, RefObject} from 'react';
 import gotham from '../../../images/gotham.png'
 
-import { IFilter, IGLFX } from '../../../model/canvases/IGLFX';
-import { IMask } from '../../../model/canvases/IMask';
+import {IFilter, IGLFX} from '../../../model/canvases/IGLFX';
+import {IMask} from '../../../model/canvases/IMask';
 import Mask from '../../../components/canvases/Mask/Mask';
 import GLFX from '../../../components/canvases/GLFX';
-import { jpkerNose } from '../../../services/areas/joker/joker-nose';
-import { jokerEyebrowsTriangle } from '../../../services/areas/joker/joker-eyebrows-triangle';
-import { jokerEyebrows } from '../../../services/areas/joker/joker-eybrows';
-import { jokerEyes } from '../../../services/areas/joker/joker-eyes';
-import { jokerLips } from '../../../services/areas/joker/joker-lips';
-import { jokerCircuit } from '../../../services/areas/joker/joker-circuit';
-import { ICharacter } from '../../Article/Article';
+import {jpkerNose} from '../../../services/areas/joker/joker-nose';
+import {jokerEyebrowsTriangle} from '../../../services/areas/joker/joker-eyebrows-triangle';
+import {jokerEyebrows} from '../../../services/areas/joker/joker-eybrows';
+import {jokerEyes} from '../../../services/areas/joker/joker-eyes';
+import {jokerLips} from '../../../services/areas/joker/joker-lips';
+import {jokerCircuit} from '../../../services/areas/joker/joker-circuit';
+import {ICharacter} from '../../Article/Article';
 
-const Joker: React.FC<ICharacter> = ({imgPath, backgroundFilter, width, height, inputData, positions, outputData}) => {
+const Joker: React.FC<ICharacter> = ({imgPath, width, height, inputVideo, inputBackground, positions, outputData}) => {
+  const [glfxBackgroundData, setGlfxBackgroundData] = useState(inputBackground);
   const [maskData, setMaskData] = useState<ImageData>();
 
   const filter: IFilter = (canvas, tempCanvas) => {
@@ -26,14 +27,22 @@ const Joker: React.FC<ICharacter> = ({imgPath, backgroundFilter, width, height, 
 
   useEffect(() => {
     imgPath(gotham);
-    backgroundFilter!(filter);
     return () => {
       console.log('Joker un mount. ');
     }
   }, []);
 
+  const glfxBackground: IGLFX = {
+    inputData: inputBackground,
+    outputData: (glfxData) => setGlfxBackgroundData(glfxData),
+    width,
+    height,
+    filter
+  };
+
+
   const mask: IMask = {
-    inputData,
+    inputData: inputVideo,
     outputData: (maskData) => setMaskData(maskData),
     width,
     height,
@@ -71,7 +80,7 @@ const Joker: React.FC<ICharacter> = ({imgPath, backgroundFilter, width, height, 
 
   const glfxMask: IGLFX = {
     inputData: maskData,
-    outputData: (glfxMaskData) => outputData(glfxMaskData),
+    outputData: (glfxMaskData) => outputData([glfxBackgroundData, glfxMaskData]),
     width,
     height,
     filter: (canvas, tempCanvas) => {
@@ -86,6 +95,7 @@ const Joker: React.FC<ICharacter> = ({imgPath, backgroundFilter, width, height, 
   return (
     <>
       <p>Joker</p>
+      <GLFX {...glfxBackground}/>
       <Mask {...mask}/>
       <GLFX {...glfxMask}/>
     </>

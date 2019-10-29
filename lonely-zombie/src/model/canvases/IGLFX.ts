@@ -1,4 +1,4 @@
-import { ICanvas } from '../ICanvas';
+import {ICanvas} from '../ICanvas';
 
 declare global {
   interface Window {
