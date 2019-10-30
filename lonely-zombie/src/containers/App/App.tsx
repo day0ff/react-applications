@@ -15,7 +15,7 @@ const App: React.FC = () => {
 
   const article: IArticle = {
     isChromaKeyShown,
-    isGridMaskShown
+    isGridMaskShown,
   };
 
   return (

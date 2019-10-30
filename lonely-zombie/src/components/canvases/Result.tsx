@@ -1,7 +1,19 @@
-import React, {useState, useRef, useEffect, RefObject} from 'react';
-import {IResult} from '../../model/canvases/IResult';
+import React, { useState, useRef, useEffect, RefObject } from 'react';
+import { IResult } from '../../model/canvases/IResult';
+import { useKey } from '../../services/hooks/useKey'
 
-const Result: React.FC<IResult> = ({width, height, inputData}) => {
+const Result: React.FC<IResult> = ({width, height, inputData, outputData}) => {
+  const space = useKey({
+    key: ' ', keyDown: () => {
+      const canvasElement = (canvasRef as RefObject<HTMLCanvasElement>).current as HTMLCanvasElement;
+      const canvasContext = canvasElement.getContext('2d') as CanvasRenderingContext2D;
+      const imageData = canvasContext.getImageData(0, 0, width, height);
+
+      outputData && outputData(imageData);
+      console.log(imageData);
+    }
+  });
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

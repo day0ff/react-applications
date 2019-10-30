@@ -1,4 +1,4 @@
-import React, {ReactElement, useState, useEffect} from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 import config from '../../config.json';
 import picture from '../../images/magnus.png'
 
@@ -7,21 +7,22 @@ import Witch from '../Characters/Witch/Witch';
 import Zombie from '../Characters/Zombie/Zombie';
 import Joker from '../Characters/Joker/Joker';
 import Character from '../../components/Character/Character';
-import {IPosition, IVideo, IVideoData} from '../../model/canvases/IVideo';
-import {Color, default as ColorPicker, IColorPicker} from '../../components/canvases/ColorPicker/ColorPicker';
-import {IImage} from '../../model/canvases/IImage';
+import { IPosition, IVideo, IVideoData } from '../../model/canvases/IVideo';
+import { Color, default as ColorPicker, IColorPicker } from '../../components/canvases/ColorPicker/ColorPicker';
+import { IImage } from '../../model/canvases/IImage';
 import Video from '../../components/Video/Video';
-import {IBackground} from '../../model/canvases/IBackground';
-import {IFaceCircuit} from '../../model/canvases/IFaceCircuit';
+import { IBackground } from '../../model/canvases/IBackground';
+import { IFaceCircuit } from '../../model/canvases/IFaceCircuit';
 import FaceCircuit from '../../components/canvases/FaceCircuit/FaceCircuit';
 import Result from '../../components/canvases/Result';
-import {IResult} from '../../model/canvases/IResult';
+import { IResult } from '../../model/canvases/IResult';
 import Background from '../../components/canvases/Background/Background';
-import {IDimensions} from '../../model/IDimensions';
+import { IDimensions } from '../../model/IDimensions';
+import Gallery, { IGallery } from '../Gallery/Gallery';
 
 export interface IArticle {
-  isChromaKeyShown: boolean,
-  isGridMaskShown: boolean
+  isChromaKeyShown: boolean;
+  isGridMaskShown: boolean;
 }
 
 export interface ICharacter extends IDimensions {
@@ -53,6 +54,8 @@ const Article: React.FC<IArticle> = ({isChromaKeyShown, isGridMaskShown}) => {
   const [backgroundImage, setBackgroundImage] = useState<string>();
 
   const [characterData, setCharacterData] = useState<ImageData[]>();
+
+  const [images, setImages] = useState<ImageData[]>([]);
 
   const video: IVideo = {
     outputData: ({videoData, positions}) => {
@@ -103,8 +106,15 @@ const Article: React.FC<IArticle> = ({isChromaKeyShown, isGridMaskShown}) => {
 
   const result: IResult = {
     inputData: characterData || [backgroundData!],
+    outputData: (imageData) => setImages(images => [...images, imageData]),
     width,
     height
+  };
+
+  const gallery: IGallery = {
+    width,
+    height,
+    inputData: images
   };
 
   const setCharacter = (name: string) => {
@@ -141,14 +151,12 @@ const Article: React.FC<IArticle> = ({isChromaKeyShown, isGridMaskShown}) => {
         <ColorPicker {...colorPicker}/>
       </section>
       <Background {...background}/>
-
       {getCharacter()}
-
-
       <Result {...result}/>
-      <section className={'characters'}>
+      <section className={'Characters'}>
         {CHARACTERS.map(character => (<Character key={character} name={character} setCharacter={setCharacter}/>))}
       </section>
+      <Gallery {...gallery}/>
     </article>
   );
 };
