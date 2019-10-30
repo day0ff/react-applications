@@ -1,3 +1,10 @@
 .ColorPicker {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ColorPicker #color-picker {
+    cursor: crosshair;
 }

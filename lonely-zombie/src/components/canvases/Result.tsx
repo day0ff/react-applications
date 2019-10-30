@@ -6,11 +6,9 @@ const Result: React.FC<IResult> = ({width, height, inputData, outputData}) => {
   const space = useKey({
     key: ' ', keyDown: () => {
       const canvasElement = (canvasRef as RefObject<HTMLCanvasElement>).current as HTMLCanvasElement;
-      const canvasContext = canvasElement.getContext('2d') as CanvasRenderingContext2D;
-      const imageData = canvasContext.getImageData(0, 0, width, height);
+      const path = canvasElement.toDataURL();
 
-      outputData && outputData(imageData);
-      console.log(imageData);
+      outputData && outputData(path);
     }
   });
 

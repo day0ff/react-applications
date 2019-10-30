@@ -21,8 +21,6 @@ import { IDimensions } from '../../model/IDimensions';
 import Gallery, { IGallery } from '../Gallery/Gallery';
 
 export interface IArticle {
-  isChromaKeyShown: boolean;
-  isGridMaskShown: boolean;
 }
 
 export interface ICharacter extends IDimensions {
@@ -37,8 +35,26 @@ const {width, height, autoPlay, color, tolerance, character: hero} = config;
 
 const ZOMBIE = 'ZOMBIE', WITCH = 'WITCH', JOKER = 'JOKER', DEFAULT = 'DEFAULT';
 
-const Article: React.FC<IArticle> = ({isChromaKeyShown, isGridMaskShown}) => {
+const Article: React.FC<IArticle> = () => {
   const CHARACTERS = [ZOMBIE, WITCH, JOKER];
+
+  const [isChromaKeyShown, setIsChromaKeyShown] = useState(false);
+  const [isGridMaskShown, setIsGridMaskShown] = useState(false);
+
+  const hideShowChromaKey = () => {
+    setIsGridMaskShown(false);
+    setIsChromaKeyShown(!isChromaKeyShown);
+  };
+
+  const hideShowGridMask = () => {
+    setIsChromaKeyShown(false);
+    setIsGridMaskShown(!isGridMaskShown);
+  };
+
+  const hideAll = () => {
+    setIsChromaKeyShown(false);
+    setIsGridMaskShown(false);
+  };
 
   const [currentCharacter, setCurrentCharacter] = useState<string>(hero);
 
@@ -55,7 +71,7 @@ const Article: React.FC<IArticle> = ({isChromaKeyShown, isGridMaskShown}) => {
 
   const [characterData, setCharacterData] = useState<ImageData[]>();
 
-  const [images, setImages] = useState<ImageData[]>([]);
+  const [images, setImages] = useState<string[]>([]);
 
   const video: IVideo = {
     outputData: ({videoData, positions}) => {
@@ -114,7 +130,8 @@ const Article: React.FC<IArticle> = ({isChromaKeyShown, isGridMaskShown}) => {
   const gallery: IGallery = {
     width,
     height,
-    inputData: images
+    inputData: images,
+    outputData: (path) => setImages(images => [...images.filter((image) => path !== image)])
   };
 
   const setCharacter = (name: string) => {
@@ -142,6 +159,8 @@ const Article: React.FC<IArticle> = ({isChromaKeyShown, isGridMaskShown}) => {
 
   return (
     <article className={'Article'}>
+      {getCharacter()}
+      <Result {...result}/>
       <section className={isGridMaskShown ? 'show' : 'hidden'}>
         <Video {...video}/>
       </section>
@@ -151,8 +170,11 @@ const Article: React.FC<IArticle> = ({isChromaKeyShown, isGridMaskShown}) => {
         <ColorPicker {...colorPicker}/>
       </section>
       <Background {...background}/>
-      {getCharacter()}
-      <Result {...result}/>
+      <section>
+        <button onClick={hideShowGridMask}>Show 'Grid Mask'</button>
+        <button onClick={hideShowChromaKey}>Show 'Chroma Key'</button>
+        <button onClick={hideAll}>Hid All</button>
+      </section>
       <section className={'Characters'}>
         {CHARACTERS.map(character => (<Character key={character} name={character} setCharacter={setCharacter}/>))}
       </section>

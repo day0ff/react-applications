@@ -1,3 +1,10 @@
+.Article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .Article section.show {
     display: block;
 }

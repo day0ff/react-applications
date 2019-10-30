@@ -1,3 +1,15 @@
 .Gallery {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0.5);
+    flex-wrap: wrap;
+    width: 200vw;
+    align-self: flex-start;
+    transform-origin: top center;
+}
+
+.Gallery div {
+    padding: 20px;
 }
