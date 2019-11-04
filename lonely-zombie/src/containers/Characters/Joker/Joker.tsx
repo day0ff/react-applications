@@ -2,8 +2,8 @@ import React, {useState, useRef, useEffect, RefObject} from 'react';
 import gotham from '../../../images/gotham.png'
 
 import {IFilter, IGLFX} from '../../../model/canvases/IGLFX';
-import {IMask} from '../../../model/canvases/IMask';
-import Mask from '../../../components/canvases/Mask/Mask';
+import {IMakeup} from '../../../model/canvases/IMakeup';
+import Makeup from '../../../components/canvases/Makeup/Makeup';
 import GLFX from '../../../components/canvases/GLFX';
 import {jpkerNose} from '../../../services/areas/joker/joker-nose';
 import {jokerEyebrowsTriangle} from '../../../services/areas/joker/joker-eyebrows-triangle';
@@ -41,7 +41,7 @@ const Joker: React.FC<ICharacter> = ({imgPath, width, height, inputVideo, inputB
   };
 
 
-  const mask: IMask = {
+  const makeup: IMakeup = {
     inputData: inputVideo,
     outputData: (maskData) => setMaskData(maskData),
     width,
@@ -96,7 +96,7 @@ const Joker: React.FC<ICharacter> = ({imgPath, width, height, inputVideo, inputB
     <>
       <p>Joker</p>
       <GLFX {...glfxBackground}/>
-      <Mask {...mask}/>
+      <Makeup {...makeup}/>
       <GLFX {...glfxMask}/>
     </>
   );

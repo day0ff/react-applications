@@ -1,6 +1,6 @@
 import {ICanvas} from '../ICanvas';
 import {IPosition} from './IVideo';
-import {IPath} from './IMask';
+import {IPath} from './IMakeup';
 import {IFilter} from './IGLFX';
 
 declare global {

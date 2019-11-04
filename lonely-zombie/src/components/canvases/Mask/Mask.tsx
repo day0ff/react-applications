@@ -1,15 +1,16 @@
 import React, {useRef, useEffect, RefObject} from 'react';
 import './Mask.css';
 import {IMask} from '../../../model/canvases/IMask';
-import {rgba} from '../../../services/helpers';
+import {angle} from '../../../services/helpers';
 
 const Mask: React.FC<IMask> = ({width, height, inputData, outputData, mask, positions}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (inputData && positions) {
-      const {background, areas} = mask;
+    if (inputData && positions && mask.source) {
+      const corner = angle(positions);
 
+      const {areas, source, translate, destination} = mask;
 
       const canvasElement = (canvasRef as RefObject<HTMLCanvasElement>).current as HTMLCanvasElement;
       const canvasContext = canvasElement.getContext('2d') as CanvasRenderingContext2D;
@@ -21,22 +22,25 @@ const Mask: React.FC<IMask> = ({width, height, inputData, outputData, mask, posi
       tempCanvas.height = height;
 
       const tempContext = tempCanvas.getContext('2d') as CanvasRenderingContext2D;
-
-      tempContext.fillStyle = rgba(background);
-      tempContext.fill();
+      tempContext.beginPath();
 
       areas.forEach(area => {
-        tempContext.save();
-        tempContext.fillStyle = rgba(area.color);
-        tempContext.strokeStyle = rgba(area.color);
-        tempContext.beginPath();
-
         area.path(positions, tempContext);
-
-        tempContext.closePath();
-
-        tempContext.restore()
+        tempContext.stroke();
       });
+
+      tempContext.closePath();
+      tempContext.clip();
+      tempContext.translate(...positions[translate]);
+
+      tempContext.rotate(corner);
+
+      const widthRect = Math.sqrt(Math.pow(positions[destination.left][0] - positions[destination.right][0], 2)
+        + Math.pow(positions[destination.left][1] - positions[destination.right][1], 2));
+
+      tempContext.drawImage(source, 0, 0 - widthRect / 2, widthRect, widthRect);
+
+      tempContext.rotate(-corner);
 
       canvasContext.drawImage(tempCanvas, 0, 0, width, height);
 

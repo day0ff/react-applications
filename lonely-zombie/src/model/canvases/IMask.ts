@@ -1,21 +1,17 @@
 import {ICanvas} from '../ICanvas';
 import {IPosition} from './IVideo';
-import {Color} from '../../components/canvases/ColorPicker/ColorPicker';
+import {IPath} from './IMakeup';
 
-export interface IPath {
-  (points: IPosition[], context: CanvasRenderingContext2D): CanvasRenderingContext2D
+export interface IMaskArea {
+  path: IPath;
 }
-
-export interface IArea {
-  path: IPath,
-  color: Color
-}
-
 
 export interface IMask extends ICanvas<ImageData, ImageData> {
   positions: IPosition[];
   mask: {
-    background: Color,
-    areas: IArea[]
+    source: CanvasImageSource;
+    translate: number;
+    destination: { left: number, right: number };
+    areas: IMaskArea[];
   };
 }

@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import React, {ReactElement, useState, useEffect} from 'react';
 import config from '../../config.json';
 import picture from '../../images/magnus.png'
 
@@ -7,18 +7,19 @@ import Witch from '../Characters/Witch/Witch';
 import Zombie from '../Characters/Zombie/Zombie';
 import Joker from '../Characters/Joker/Joker';
 import Character from '../../components/Character/Character';
-import { IPosition, IVideo, IVideoData } from '../../model/canvases/IVideo';
-import { Color, default as ColorPicker, IColorPicker } from '../../components/canvases/ColorPicker/ColorPicker';
-import { IImage } from '../../model/canvases/IImage';
+import {IPosition, IVideo, IVideoData} from '../../model/canvases/IVideo';
+import {Color, default as ColorPicker, IColorPicker} from '../../components/canvases/ColorPicker/ColorPicker';
+import {IImage} from '../../model/canvases/IImage';
 import Video from '../../components/Video/Video';
-import { IBackground } from '../../model/canvases/IBackground';
-import { IFaceCircuit } from '../../model/canvases/IFaceCircuit';
+import {IBackground} from '../../model/canvases/IBackground';
+import {IFaceCircuit} from '../../model/canvases/IFaceCircuit';
 import FaceCircuit from '../../components/canvases/FaceCircuit/FaceCircuit';
 import Result from '../../components/canvases/Result';
-import { IResult } from '../../model/canvases/IResult';
+import {IResult} from '../../model/canvases/IResult';
 import Background from '../../components/canvases/Background/Background';
-import { IDimensions } from '../../model/IDimensions';
-import Gallery, { IGallery } from '../Gallery/Gallery';
+import {IDimensions} from '../../model/IDimensions';
+import Gallery, {IGallery} from '../Gallery/Gallery';
+import Terminator from '../Characters/Terminator/Terminator';
 
 export interface IArticle {
 }
@@ -33,10 +34,10 @@ export interface ICharacter extends IDimensions {
 
 const {width, height, autoPlay, color, tolerance, character: hero} = config;
 
-const ZOMBIE = 'ZOMBIE', WITCH = 'WITCH', JOKER = 'JOKER', DEFAULT = 'DEFAULT';
+const ZOMBIE = 'ZOMBIE', WITCH = 'WITCH', JOKER = 'JOKER', TERMINATOR = 'TERMINATOR', DEFAULT = 'DEFAULT';
 
 const Article: React.FC<IArticle> = () => {
-  const CHARACTERS = [ZOMBIE, WITCH, JOKER];
+  const CHARACTERS = [ZOMBIE, WITCH, JOKER, TERMINATOR];
 
   const [isChromaKeyShown, setIsChromaKeyShown] = useState(false);
   const [isGridMaskShown, setIsGridMaskShown] = useState(false);
@@ -152,7 +153,8 @@ const Article: React.FC<IArticle> = () => {
     [ZOMBIE]: (props) => (<Zombie {...props}/>),
     [WITCH]: (props) => (<Witch {...props}/>),
     [JOKER]: (props) => (<Joker {...props}/>),
-    [DEFAULT]: (props) => (<Zombie {...props}/>)
+    [TERMINATOR]: (props) => (<Terminator {...props}/>),
+    [DEFAULT]: (props) => (<Terminator {...props}/>)
   };
 
   const getCharacter = () => (literalSwitch[currentCharacter] || literalSwitch['DEFAULT'])(character);
