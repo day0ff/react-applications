@@ -76,7 +76,7 @@ const ColorPicker: React.FC<IColorPicker> = ({width, height, inputData, outputDa
       <canvas ref={canvasRef} id={'color-picker'} width={width} height={height} onClick={sendPixelColor}
               onMouseMove={handleMouseMove}/>
       <canvas ref={canvasColorPixelRef} id={'color'} width={ColorPickerWidth} height={ColorPickerHeight}/>
-      <input type="range" min="0" max="500" value={tolerance} onChange={toleranceChange}/>
+      <input type="range" min="100" max="250" value={tolerance} onChange={toleranceChange}/>
     </div>
   );
 };
