@@ -1,0 +1,28 @@
+.Input{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Input * {
+    margin: 4px 0;
+    text-align: center;
+}
+
+.Input input{
+    font-size:16px;
+    border:none;
+    border-bottom: solid 2px black;
+    background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.8) 80%);
+}
+
+.Input input:focus{
+    outline: none;
+}
+
+.Input .error{
+    font-size:12px;
+    line-height: 12px;
+    color: orangered;
+}

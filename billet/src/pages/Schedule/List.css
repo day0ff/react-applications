@@ -1,0 +1,33 @@
+.List {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.List > * {
+    text-align: center;
+}
+
+.List .stations {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+@media (orientation: portrait) {
+    .List .stations {
+        flex-direction: column;
+    }
+    .List .stations > * {
+        margin: 10px;
+    }
+}
+
+@media (orientation: landscape) {
+    .List .stations {
+        flex-direction: row;
+    }
+}
