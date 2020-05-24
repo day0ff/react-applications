@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { AnimatedSwitch } from 'react-router-transition';
 import Station from '../../pages/Station';
-import List from '../../pages/Schedule';
+import List from '../../pages/List';
 import './AnimatedSwitch.css';
 
 function Router() {

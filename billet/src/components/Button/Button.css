@@ -1,3 +1,15 @@
 .Button{
+    padding: 4px 8px;
+    font-size: 22px;
+    line-height: 22px;
+    color: #4a4a4a;
+    border: solid 2px #4a4a4a;
+    border-radius: 4px;
+    transition: all 0.6s;
+}
 
+.Button:hover:not([disabled]){
+    cursor: pointer;
+    color: black;
+    border-color: black;
 }
