@@ -4,40 +4,33 @@ import './List.css';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+const ERROR_MESSAGE = 'Please, enter station name.';
+
 function List() {
-    const [state, setState] = useState({
-        stationFirst: {
-            value: '',
-            error: ''
-        },
-        stationSecond: {
-            value: '',
-            error: ''
-        }
-    });
+    const [stations, setStations] = useState([
+        {id: 1, value: '', label: 'First station name', error: ''},
+        {id: 2, value: '', label: 'Second station name', error: ''}
+    ]);
+
+    const stationItems = stations.map(station =>
+        (<Input key={station.id} id={station.id} label={station.label} name={station.id} value={station.value}
+                error={station.error}
+                outerHandler={handleChange}/>));
+
 
     let history = useHistory();
 
-    function handleChange(name, value) {
-        setState({
-            ...state, [name]: {
-                value,
-                error: ''
-            }
-        });
+    function handleChange(id, value) {
+        setStations(stations.map(station => station.id === id ? {...station, value, error:''} : station));
     }
 
     function handleClick() {
-        const newStateFirst = !state.stationFirst.value && { stationFirst:{
-            value: state.stationFirst.value,
-            error: 'Please, enter station name.'
-        }};
-        const newStateSecond = !state.stationSecond.value && {stationSecond:{
-            value: state.stationSecond.value,
-            error: 'Please, enter station name.'
-        }};
-        (newStateFirst || newStateSecond) && setState({...state, ...newStateFirst,...newStateSecond});
-        state.stationFirst.value && state.stationSecond.value && history.push('station');
+        const emptyFields = stations.reduce((acc, station) => station.value === '' ? [...acc, station.id] : acc, []);
+
+        emptyFields.length && setStations(stations.map(station =>
+            emptyFields.includes(station.id) ? {...station, error: ERROR_MESSAGE} : station));
+
+        !emptyFields.length && history.push('station');
     }
 
     return (
@@ -45,10 +38,7 @@ function List() {
             <h1>List</h1>
             <p>Please, come up with names for the Stations.</p>
             <div className="stations">
-                <Input label="First station name" name="stationFirst" value={state.stationFirst.value}
-                       error={state.stationFirst.error} outerHandler={handleChange}/>
-                <Input label="Second station name" name="stationSecond" value={state.stationSecond.value}
-                       error={state.stationSecond.error} outerHandler={handleChange}/>
+                {stationItems}
             </div>
             <Button label="Go" outerHandler={handleClick}/>
         </div>
