@@ -11,6 +11,10 @@
     text-align: center;
 }
 
+.List .stationsForm{
+    width: 100%;
+}
+
 .List .stations {
     display: flex;
     justify-content: space-evenly;
