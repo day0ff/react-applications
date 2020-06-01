@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { AnimatedSwitch } from 'react-router-transition';
+import PrivateRoute from '../../auth/PrivateRoute';
 import './AnimatedSwitch.css';
 
+import Home from '../../pages/Home';
 import Station from '../../pages/Station';
 import List from '../../pages/List';
 import NotFound from '../../pages/NotFound';
@@ -17,10 +19,10 @@ function Router() {
                 atActive={{opacity: 1}}
                 className="AnimatedSwitch"
             >
-                <Route path="/" exact component={List}/>
+                <Route path="/" exact component={Home}/>
                 <Route path="/login" exact component={Login}/>
-                <Route path="/station" exact component={Station}/>
-                <Route path="/list" exact component={List}/>
+                <PrivateRoute path="/station/:name" exact component={Station}/>
+                <PrivateRoute path="/list" exact component={List}/>
                 <Route component={NotFound}/>
             </AnimatedSwitch>
         </BrowserRouter>

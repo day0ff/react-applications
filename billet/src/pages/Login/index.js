@@ -1,7 +1,10 @@
 import React from 'react';
 import './Login.css';
+import { useHistory } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import auth from '../../auth/Auth';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -21,9 +24,12 @@ function Login() {
         }),
         onSubmit: values => {
             console.log(JSON.stringify(values, null, 2));
-            console.log(formik);
+            auth.authenticate();
+            history.push('/');
         },
     });
+
+    let history = useHistory();
 
     return (
         <div className="Login">
@@ -45,7 +51,7 @@ function Login() {
                        placeholder="Password"
                        handleChange={formik.handleChange}
                        error={formik.errors.password}/>
-                <Button type="submit" disabled={formik.isSubmitting} path="/" outerHandler={()=>{}}>
+                <Button type="submit" disabled={formik.isSubmitting} outerHandler={()=>{}}>
                     Login
                 </Button>
             </form>

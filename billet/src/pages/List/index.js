@@ -20,8 +20,7 @@ function List() {
         }),
         onSubmit: values => {
             console.log(JSON.stringify(values, null, 2));
-            console.log(formik);
-            history.push('station');
+            history.push(`station/${values.station1}`);
         }
     });
 
