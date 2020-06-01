@@ -10,6 +10,13 @@ body {
     height: 100vh;
 }
 
+@media (orientation: portrait) {
+    body {
+        background: url('/images/train.png') no-repeat left;
+        background-size: cover;
+    }
+}
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
