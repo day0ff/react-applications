@@ -1,10 +1,7 @@
 import React from 'react';
 import './Input.css';
 
-function Input({id, label, type = 'text', placeholder = 'Station name', name, value, className, error, outerHandler}) {
-    function handleChange({target:{value}}) {
-        outerHandler(id, value);
-    }
+function Input({id, label, type = 'text', placeholder = 'Station name', name, value, className, error, handleChange}) {
 
     return (
         <div className={`Input ${className}`}>

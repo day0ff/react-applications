@@ -6,6 +6,7 @@ import './AnimatedSwitch.css';
 import Station from '../../pages/Station';
 import List from '../../pages/List';
 import NotFound from '../../pages/NotFound';
+import Login from '../../pages/Login';
 
 function Router() {
     return (
@@ -17,6 +18,7 @@ function Router() {
                 className="AnimatedSwitch"
             >
                 <Route path="/" exact component={List}/>
+                <Route path="/login" exact component={Login}/>
                 <Route path="/station" exact component={Station}/>
                 <Route path="/list" exact component={List}/>
                 <Route component={NotFound}/>

@@ -13,3 +13,9 @@
     color: black;
     border-color: black;
 }
+
+.Button:disabled {
+    color: #4a4a4a;
+    border: solid 2px rgba(239, 239, 239, 0.3);
+    background-color: rgba(239, 239, 239, 0.3);
+}
