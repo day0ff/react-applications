@@ -21,7 +21,7 @@ function Router() {
             >
                 <Route path="/" exact component={Home}/>
                 <Route path="/login" exact component={Login}/>
-                <PrivateRoute path="/station/:name" exact component={Station}/>
+                <PrivateRoute path="/station/:id" exact component={Station}/>
                 <PrivateRoute path="/list" exact component={List}/>
                 <Route component={NotFound}/>
             </AnimatedSwitch>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 import './Button.css';
 
-function Button({type="button", disabled=false, path, className, outerHandler, children}) {
+function Button({type="button", disabled=false, path, className='', outerHandler, children}) {
     let history = useHistory();
 
     function handleClick() {

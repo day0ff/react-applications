@@ -1,26 +1,31 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './List.css';
+import { ACTION_TYPES } from '../../store/actions/action-types';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+const {STATION_ACTION_TYPES: {SET_STATION_NAME}} = ACTION_TYPES;
+
 function List() {
+    const stations = useSelector(state => state.stationsReducer.stations);
+    const dispatch = useDispatch();
+
     const formik = useFormik({
-        initialValues: {
-            station1: '',
-            station2: ''
-        },
+        initialValues: {...stations.reduce((acc, {id, name}) => ({...acc, [id]: name}), {})},
         validationSchema: Yup.object().shape({
-            station1: Yup.string()
-                .required('Please, enter station name.'),
-            station2: Yup.string()
-                .required('Please, enter station name.')
+            ...stations.reduce((acc, {id}) => ({
+                ...acc,
+                [id]: Yup.string().required('Please, enter station name.')
+            }), {})
         }),
         onSubmit: values => {
-            console.log(JSON.stringify(values, null, 2));
-            history.push(`station/${values.station1}`);
+            const stations = Object.entries(values);
+            stations.forEach(([id,name])=>dispatch({type: SET_STATION_NAME, id: +id, name}));
+            history.push(`station/${stations[0][0]}`);
         }
     });
 
@@ -34,22 +39,18 @@ function List() {
             <p>Please, come up with names for the Stations.</p>
             <form className="stationsForm" onSubmit={formik.handleSubmit}>
                 <div className="stations">
-                    <Input id="station1"
-                           name="station1"
-                           type="text"
-                           onChange={formik.handleChange}
-                           value={formik.values.station1}
-                           placeholder="First station name"
-                           handleChange={formik.handleChange}
-                           error={formik.errors.station1}/>
-                    <Input id="station2"
-                           name="station2"
-                           type="text"
-                           onChange={formik.handleChange}
-                           value={formik.values.station2}
-                           placeholder="Second station name"
-                           handleChange={formik.handleChange}
-                           error={formik.errors.station2}/>
+                    {
+                        stations.map(({id}) =>
+                            <Input id={id}
+                                   key={id}
+                                   name={id}
+                                   type="text"
+                                   onChange={formik.handleChange}
+                                   value={formik.values[id]}
+                                   placeholder="Station Name"
+                                   handleChange={formik.handleChange}
+                                   error={formik.errors[id]}/>)
+                    }
                 </div>
                 <Button type="submit" disabled={formik.isSubmitting} outerHandler={() => {
                 }}>Go</Button>
