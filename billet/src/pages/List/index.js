@@ -11,7 +11,7 @@ import Button from '../../components/Button';
 const {STATION_ACTION_TYPES: {SET_STATION_NAME}} = ACTION_TYPES;
 
 function List() {
-    const stations = useSelector(state => state.stationsReducer.stations);
+    const stations = useSelector(state => state.stations);
     const dispatch = useDispatch();
 
     const formik = useFormik({

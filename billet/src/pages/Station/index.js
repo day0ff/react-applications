@@ -5,7 +5,7 @@ import Button from '../../components/Button';
 import { useSelector } from 'react-redux';
 
 function Station() {
-    const stations = useSelector(state => state.stationsReducer.stations);
+    const stations = useSelector(state => state.stations);
     let {id} = useParams();
     return (
         <div className="Station">
