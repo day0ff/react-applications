@@ -1,13 +1,17 @@
 import React from 'react';
 import './Login.css';
 import { useHistory } from 'react-router-dom';
-import auth from '../../services/auth';
+import { useDispatch } from 'react-redux';
+import { ACTION_TYPES } from '../../store/actions/action-types';
+
+const {AUTH_LOGIN} = ACTION_TYPES.AUTH_TYPES;
 
 function Login() {
+    const dispatch = useDispatch();
     const history = useHistory();
 
     function handleClick() {
-        auth.authenticate();
+        dispatch({type: AUTH_LOGIN});
         history.push('home');
     }
 

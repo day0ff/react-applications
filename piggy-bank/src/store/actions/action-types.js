@@ -1,0 +1,8 @@
+const AUTH_TYPES = {
+    AUTH_LOGIN:'AUTH_LOGIN',
+    AUTH_LOGOUT:'AUTH_LOGOUT'
+};
+
+export const ACTION_TYPES = {
+    AUTH_TYPES,
+};
