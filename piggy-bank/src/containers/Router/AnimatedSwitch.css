@@ -1,0 +1,20 @@
+.AnimatedSwitch{
+    position: relative;
+}
+
+.AnimatedSwitch > div {
+    position: absolute;
+    left:0;
+    top:0;
+    right: 0;
+    bottom: 0;
+}
+
+.AnimatedSwitch > div > * {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
