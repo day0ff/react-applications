@@ -1,16 +1,16 @@
 import React from 'react';
-import './About.css';
+import './Bank.css';
 
 import { Link } from 'react-router-dom';
 
-function About() {
+function Bank() {
 
     return (
-        <div className="About">
-            <h1>About</h1>
+        <div className="Bank">
+            <h1>Bank</h1>
             <p><Link to="login">Go Login</Link></p>
         </div>
     );
 }
 
-export default About;
+export default Bank;

@@ -8,6 +8,7 @@ import Home from '../../pages/Home';
 import Login from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
 import About from '../../pages/About';
+import Bank from '../../pages/Bank';
 
 function Router() {
     return (
@@ -22,6 +23,7 @@ function Router() {
                 <Route path="/home" exact component={Home}/>
                 <Route path="/login" exact component={Login}/>
                 <PrivateRoute path="/about" exact component={About}/>
+                <PrivateRoute path="/bank" roles={['admin']} exact component={Bank}/>
                 <Route component={NotFound}/>
             </AnimatedSwitch>
         </BrowserRouter>
