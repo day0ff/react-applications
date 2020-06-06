@@ -37,7 +37,7 @@ function Sprite(props) {
     }
 
     function animate() {
-        const newPosition = position < props.width - props.step ? position + props.step : 0;
+        const newPosition = -position < props.width - props.step ? position - props.step : 0;
         setPosition(newPosition);
         sprite.current.style.backgroundPosition = `${position}px 0px`;
     }
