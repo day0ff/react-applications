@@ -3,10 +3,12 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage';
 import authReducer from './reducers/auth-reducer';
 import usersReducer from './reducers/users-reducer';
+import moneyboxReducer from './reducers/moneybox-reducer';
 
 const rootReducer = combineReducers({
     auth:authReducer,
-    users:usersReducer
+    users:usersReducer,
+    moneybox:moneyboxReducer
 });
 
 const persistConfig = {

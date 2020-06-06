@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { ACTION_TYPES } from '../../store/actions/action-types';
-
-const {AUTH_LOGIN} = ACTION_TYPES.AUTH_TYPES;
+import auth from '../../store/actions/auth-actions';
 
 function Login() {
     const users = useSelector(store => store.users);
@@ -30,7 +28,7 @@ function Login() {
     }
 
     function login(user) {
-        dispatch({type: AUTH_LOGIN, role: user.role});
+        dispatch(auth.login(user.role));
     }
 
     return (
