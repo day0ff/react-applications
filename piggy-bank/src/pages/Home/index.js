@@ -8,6 +8,7 @@ function Home() {
         <div className="Home">
             <h1>Home</h1>
             <p><Link to="about">Go About</Link></p>
+            <p><Link to="minions">Go Minions</Link></p>
         </div>
     );
 }

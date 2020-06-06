@@ -7,7 +7,6 @@ function PrivateRoute({component: Component, roles, ...rest}) {
 
     return (
         <Route {...rest} render={props => {
-            console.log(isAuthenticated, roles, role);
             if (!isAuthenticated) return <Redirect to={{pathname: '/login'}}/>;
             if (roles && !roles.find(value => value === role)) return <Redirect to={{pathname: '/'}}/>;
             return <Component {...props} />;

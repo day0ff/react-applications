@@ -9,6 +9,7 @@ import Login from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
 import About from '../../pages/About';
 import Bank from '../../pages/Bank';
+import Minions from '../../pages/Minions';
 
 function Router() {
     return (
@@ -24,6 +25,7 @@ function Router() {
                 <Route path="/login" exact component={Login}/>
                 <PrivateRoute path="/about" exact component={About}/>
                 <PrivateRoute path="/bank" roles={['admin']} exact component={Bank}/>
+                <PrivateRoute path="/minions" exact component={Minions}/>
                 <Route component={NotFound}/>
             </AnimatedSwitch>
         </BrowserRouter>
