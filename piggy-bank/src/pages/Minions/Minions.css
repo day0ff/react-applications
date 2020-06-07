@@ -6,8 +6,8 @@
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    margin: 3vw;
-    width: 96vw;
+    /*margin: 3vw;*/
+    width: 100vw;
     height: 30vw;
 }
 

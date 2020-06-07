@@ -10,6 +10,7 @@ function Sprite(props) {
     const [step, setStep] = useState(props.step);
     const [active, setActive] = useState(false);
 
+
     useEffect(() => {
         initSprite();
     }, []);
@@ -22,12 +23,14 @@ function Sprite(props) {
         }
     }, [isRunning, position]);
 
+
     function initSprite() {
-        const offsetWidth = sprite.current.offsetWidth;
-        setWidth(Math.round(width * offsetWidth / step));
-        setStep(offsetWidth);
+        const startPosition = props.position * 100 / (props.width - props.step);
+        setPosition(startPosition);
+        setStep(props.step * 100 / (props.width - props.step));
+        setWidth(100);
         sprite.current.style.backgroundImage = `url('./images/minions/${props.picture}.png')`;
-        sprite.current.style.backgroundPosition = `${position}px 0px`;
+        sprite.current.style.backgroundPosition = `${startPosition}% 0%`;
     }
 
     function startAnimation() {
@@ -39,9 +42,9 @@ function Sprite(props) {
     }
 
     function animate() {
-        const newPosition = -position < width - step ? position - step : 0;
+        const newPosition = position <= width ? position + step : 0;
         setPosition(newPosition);
-        sprite.current.style.backgroundPosition = `${position}px 0px`;
+        sprite.current.style.backgroundPosition = `${position}% 0%`;
     }
 
     function activate() {
@@ -49,7 +52,8 @@ function Sprite(props) {
     }
 
     return (
-        <span ref={sprite} id={props.id} className={`Sprite ${props.isBlocked?'blocked':''}`} onMouseEnter={startAnimation} onMouseLeave={stopAnimation}
+        <span ref={sprite} id={props.id} className={`Sprite ${props.isBlocked ? 'blocked' : ''}`}
+              onMouseEnter={startAnimation} onMouseLeave={stopAnimation}
               onClick={activate}>
         </span>
     );
