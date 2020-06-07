@@ -6,6 +6,8 @@ function Sprite(props) {
     const [timer, setTimer] = useState(null);
     const [isRunning, setIsRunning] = useState(false);
     const [position, setPosition] = useState(props.position);
+    const [width, setWidth] = useState(props.width);
+    const [step, setStep] = useState(props.step);
     const [active, setActive] = useState(false);
 
     useEffect(() => {
@@ -14,40 +16,41 @@ function Sprite(props) {
 
     useEffect(() => {
         if (isRunning) {
-            const id = setInterval(animate, props.interval);
+            const id = setTimeout(animate, props.interval);
             setTimer(id);
-            return () => clearInterval(id);
+            return () => clearTimeout(id);
         }
     }, [isRunning, position]);
 
     function initSprite() {
+        const offsetWidth = sprite.current.offsetWidth;
+        setWidth(Math.round(width * offsetWidth / step));
+        setStep(offsetWidth);
         sprite.current.style.backgroundImage = `url('./images/minions/${props.picture}.png')`;
         sprite.current.style.backgroundPosition = `${position}px 0px`;
     }
 
     function startAnimation() {
-        setIsRunning(true);
+        props.isBlocked || setIsRunning(true);
     }
 
     function stopAnimation() {
-        if(!active){
-            clearInterval(timer);
-            setIsRunning(false);
-        }
+        !active && setIsRunning(false);
     }
 
     function animate() {
-        const newPosition = -position < props.width - props.step ? position - props.step : 0;
+        const newPosition = -position < width - step ? position - step : 0;
         setPosition(newPosition);
         sprite.current.style.backgroundPosition = `${position}px 0px`;
     }
 
-    function activate(){
+    function activate() {
         setActive(!active);
     }
 
     return (
-        <span ref={sprite} id={props.id} className="Sprite" onMouseEnter={startAnimation} onMouseLeave={stopAnimation} onClick={activate}>
+        <span ref={sprite} id={props.id} className={`Sprite ${props.isBlocked?'blocked':''}`} onMouseEnter={startAnimation} onMouseLeave={stopAnimation}
+              onClick={activate}>
         </span>
     );
 }

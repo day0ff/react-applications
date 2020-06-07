@@ -1,0 +1,20 @@
+.Minion{
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+}
+
+.Minion:hover, .Minion:focus{
+    cursor: pointer;
+}
+
+.minion-mark{
+    position: absolute;
+    color: white;
+    font-size: 4vw;
+    top:calc(50% - 2vw);
+    left:calc(50% - 4vw / 6);
+}

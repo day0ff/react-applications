@@ -3,5 +3,19 @@
 .minions-list{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 3vw;
+    width: 96vw;
+    height: 30vw;
+}
+
+.minion-item{
+    position: relative;
+    margin: 18px 1vw;
+    width: 30vw;
+    height: 30vw;
+    max-width: 250px;
+    max-height: 250px;
 }

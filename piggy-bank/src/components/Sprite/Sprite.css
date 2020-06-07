@@ -1,4 +1,6 @@
 .Sprite {
-    width: 250px;
-    height: 250px;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
 }
