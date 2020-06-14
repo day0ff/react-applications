@@ -13,7 +13,7 @@ function Sprite(props) {
 
     useEffect(() => {
         initSprite();
-    }, []);
+    }, [props.picture]);
 
     useEffect(() => {
         if (isRunning) {

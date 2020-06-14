@@ -11,8 +11,7 @@ function MinionsTotal() {
     return (
         <div className="MinionsTotal">
             <Link to="minions" className="minion-current">
-                <Sprite {...minions.filter(minion => minion.type === 'minion' && minion.isBlocked === false)
-                    .sort((a, b) => a.id - b.id).pop()}/>
+                <Sprite {...minions.find(minion => minion.id === 100 + moneybox.minions)}/>
             </Link>
             <span className="count">{moneybox.minions}</span>
         </div>
