@@ -1,4 +1,4 @@
-.NewCoins{
+.MinionsTotal{
     position: relative;
     display: flex;
     justify-content: center;
@@ -7,18 +7,17 @@
     height: 100%;
 }
 
-.NewCoins .coin{
-    width: 60px;
-    height: 60px;
+.MinionsTotal .minion-current{
+    width: 90px;
+    height: 90px;
     filter:drop-shadow(0 0 2px #000000);
 }
 
-.NewCoins .count{
+.MinionsTotal .count{
     position: absolute;
     font-size: 32px;
     font-weight: bold;
     line-height: 60px;
-    overflow: visible;
     top:0;
     left:0;
     bottom: 0;

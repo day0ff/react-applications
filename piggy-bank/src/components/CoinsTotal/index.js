@@ -1,21 +1,21 @@
 import React from 'react';
-import './NewCoins.css';
+import './CoinsTotal.css';
 import { useSelector } from 'react-redux';
 import Sprite from '../Sprite';
 import { Link } from 'react-router-dom';
 
-function NewCoins() {
+function CoinsTotal() {
     const moneybox = useSelector(store => store.moneybox);
     const minions = useSelector(store => store.minions);
 
     return (
-        <div className="NewCoins">
-            <Link to="login" className="coin">
-                <Sprite {...minions.find(minion => minion.type==='coin')}/>
+        <div className="CoinsTotal">
+            <Link to="home" className="coin">
+                <Sprite {...minions.find(minion => minion.picture==='coins-stack')}/>
             </Link>
-            <span className="count">{moneybox.newCoins}</span>
+            <span className="count">{moneybox.coins}</span>
         </div>
     );
 }
 
-export default NewCoins;
+export default CoinsTotal;
