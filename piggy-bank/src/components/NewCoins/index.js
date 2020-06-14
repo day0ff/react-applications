@@ -4,8 +4,7 @@ import { useSelector } from 'react-redux';
 import Sprite from '../Sprite';
 import { Link } from 'react-router-dom';
 
-function NewCoins() {
-    const moneybox = useSelector(store => store.moneybox);
+function NewCoins(props) {
     const minions = useSelector(store => store.minions);
 
     return (
@@ -13,7 +12,7 @@ function NewCoins() {
             <Link to="login" className="coin">
                 <Sprite {...minions.find(minion => minion.type==='coin')}/>
             </Link>
-            <span className="count">{moneybox.newCoins}</span>
+            <span className="count">{props.newCoins}</span>
         </div>
     );
 }

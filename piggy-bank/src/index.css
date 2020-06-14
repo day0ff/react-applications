@@ -21,7 +21,7 @@ form {
 }
 
 header {
-    height: min(30vh,200px);
+    height: min(25vh,200px);
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -30,7 +30,7 @@ header {
 }
 
 article{
-    height: calc(100vh - min(30vh,200px));
+    height: calc(100vh - min(25vh,200px));
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -64,6 +64,14 @@ article{
 
 .blocked{
     filter:brightness(0);
+}
+
+.locked{
+    filter: grayscale(100%) drop-shadow(0 0 2px #000000);
+}
+
+.shadow{
+    filter: drop-shadow(0 0 2px #000000);
 }
 
 .oriented {

@@ -1,11 +1,50 @@
 .Home{
-    background: url('/images/backgrounds/breadboard-yellow.png') repeat left;
+    background: url('/images/backgrounds/breadboard-yellow.png') repeat top center;
 }
 
 .Home header{
-    background-color: rgba(0,0,0,0.6);
-    /*border-bottom: solid 1px black;*/
-    box-shadow: 0 2px 20px 0 black;
+    background: url('/images/backgrounds/breadboard-green.png') repeat top center;
+    box-shadow: 0 4px 8px 0 black;
     color: white;
     text-shadow: 1px 2px 4px #000000;
 }
+
+.Home article{
+    flex-direction: row;
+}
+
+.Home article .coins {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 75vw;
+    height: 30vw;
+}
+
+.Home article .coin, .Home article .plus, .Home article .equal{
+    position: relative;
+}
+
+.Home article .coin.triple{
+    width: 12vw;
+    height: 12vw;
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.Home article .plus.triple, .Home article .plus.equal{
+    width: 5vw;
+    height: 5vw;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.Home article .minion{
+    position: relative;
+    width: 25vw;
+    height: 25vw;
+    max-width: 250px;
+    max-height: 250px;
+}
+

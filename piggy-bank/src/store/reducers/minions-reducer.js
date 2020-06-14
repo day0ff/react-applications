@@ -9,6 +9,8 @@ const INITIAL_STATE = [
     {id: 100, type:'minion', name: 'Свинка Копилка', picture: 'piggy-bank', cost:0, isBlocked: false, width: 3000, step: 250, interval: 100, position:0},
     {id: 101, type:'minion', name: 'Жёлтый Кот', picture: 'yellow-cat', cost:3, isBlocked: true, width: 3840, step: 480, interval: 120, position:0},
     {id: 1000, type:'menu', name: 'Стопка Монет', picture: 'coins-stack', cost:0, isBlocked: false, width: 500, step: 500, interval: 10000, position:0},
+    {id: 1001, type:'menu', name: 'Плюс Зелёный', picture: 'plus-green', cost:0, isBlocked: false, width: 300, step: 300, interval: 10000, position:0},
+    {id: 1002, type:'menu', name: 'Равно Зелёное', picture: 'equal-green', cost:0, isBlocked: false, width: 300, step: 300, interval: 10000, position:0},
 ];
 
 const minionsReducer = (state = INITIAL_STATE, action) => {
