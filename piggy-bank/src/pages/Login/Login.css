@@ -1,2 +1,7 @@
 .Login{
+    background: url('/images/backgrounds/breadboard-white.png') repeat left;;
+}
+
+.Login input{
+    margin-top: 10px;
 }

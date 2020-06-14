@@ -29,7 +29,7 @@ function Sprite(props) {
         setPosition(startPosition);
         setStep(props.step * 100 / (props.width - props.step));
         setWidth(100);
-        sprite.current.style.backgroundImage = `url('./images/minions/${props.picture}.png')`;
+        sprite.current.style.backgroundImage = `url('./images/sprites/${props.picture}.png')`;
         sprite.current.style.backgroundPosition = `${startPosition}% 0%`;
     }
 

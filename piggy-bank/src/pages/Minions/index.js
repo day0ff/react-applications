@@ -11,7 +11,8 @@ function Minions() {
         <div className="Minions">
             <h1>Minions.</h1>
             <div className="minions-list">
-                {minions.map(minion => (
+                {minions.filter(minion => minion.type === 'minion')
+                    .map(minion => (
                     <div key={minion.id} className="minion-item">
                         <Minion {...minion}/>
                     </div>

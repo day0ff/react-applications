@@ -18,3 +18,15 @@
     width: 100vw;
     height: 100vh;
 }
+
+.AnimatedSwitch > div > div > h1{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.AnimatedSwitch > div > div > div{
+    flex-grow: 2;
+}

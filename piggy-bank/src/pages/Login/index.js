@@ -3,9 +3,12 @@ import './Login.css';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import auth from '../../store/actions/auth-actions';
+import Button from '../../components/Button';
+import Sprite from '../../components/Sprite';
 
 function Login() {
     const users = useSelector(store => store.users);
+    const minions = useSelector(store => store.minions);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -33,11 +36,14 @@ function Login() {
 
     return (
         <div className="Login">
-            <h1>Login</h1>
+            <h1>Войти</h1>
             <div className="oriented">
                 {users.map(user => (
                     <div key={user.id} className="column">
-                        <button onClick={() => handleClick(user)}>{user.name}</button>
+                        <Button outerHandler={() => handleClick(user)}>
+                            <Sprite {...minions.find(minion=>minion.id===user.spriteId)}/>
+                            <span className="button-text">{user.name}</span>
+                        </Button>
                         <input onChange={(event) => handleChange(event, user)}
                                className={isHidden.find(elem => elem.id === user.id).hidden ? 'hidden' : 'visible'}
                                type="password"/>
