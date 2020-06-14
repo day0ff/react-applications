@@ -1,0 +1,18 @@
+.NewCoins{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+}
+
+.NewCoins .coin{
+    width: 60px;
+    height: 60px;
+}
+
+.count{
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 60px;
+}

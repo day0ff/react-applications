@@ -36,8 +36,10 @@ function Login() {
 
     return (
         <div className="Login">
-            <h1>Войти</h1>
-            <div className="oriented">
+            <header>
+                <h1>Войти</h1>
+            </header>
+            <article className="oriented">
                 {users.map(user => (
                     <div key={user.id} className="column">
                         <Button outerHandler={() => handleClick(user)}>
@@ -49,7 +51,7 @@ function Login() {
                                type="password"/>
                     </div>
                 ))}
-            </div>
+            </article>
         </div>
     );
 }
