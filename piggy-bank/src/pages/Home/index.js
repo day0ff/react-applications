@@ -44,7 +44,7 @@ function Home() {
         }
     }
 
-    function unlockMinion(){
+    function unlockMinion() {
         if (coins.every(coin => coin === true) && minion.isBlocked) {
             setIsArrowsVisible(true);
             setMinion({...minion, isBlocked: false});
@@ -55,11 +55,11 @@ function Home() {
         }
     }
 
-    function handlePreviousClick(){
-        history.push("minions");
+    function handlePreviousClick() {
+        history.push('minions');
     }
 
-    function handleNextClick(){
+    function handleNextClick() {
         setIsArrowsVisible(false);
         setIsVisible(true);
         setCoins(new Array(nextMinion.cost).fill(false));
@@ -81,8 +81,8 @@ function Home() {
                 <NewCoins newCoins={newCoins}/>
                 <MinionsTotal minion={piggyBank} minionsTotal={minionsTotal}/>
             </header>
-            <section className={isVisible?"hidden":"visible"}>
-                <div className={`previous ${isArrowsVisible?"visible":"hidden"}`}  onClick={handlePreviousClick}>
+            <section className={isVisible ? 'hidden' : 'visible'}>
+                <div className={`previous ${isArrowsVisible ? 'visible' : 'hidden'}`} onClick={handlePreviousClick}>
                     <div className="minion">
                         <Sprite {...previousMinion}/>
                     </div>
@@ -93,7 +93,7 @@ function Home() {
                 <div className="minion" onClick={unlockMinion}>
                     <Minion {...minion}/>
                 </div>
-                <div className={`next ${isArrowsVisible?"visible":"hidden"}`}  onClick={handleNextClick}>
+                <div className={`next ${isArrowsVisible ? 'visible' : 'hidden'}`} onClick={handleNextClick}>
                     <div className="arrow">
                         <Sprite {...equalSprite}/>
                     </div>
@@ -102,7 +102,7 @@ function Home() {
                     </div>
                 </div>
             </section>
-            <article className={isVisible?"visible":"hidden"}>
+            <article className={isVisible ? 'visible' : 'hidden'}>
                 <div className="coins">
                     {coins.map((coin, index) => (<>
                         <div className={`coin triple${coin ? ' shadow' : ' locked'}`}

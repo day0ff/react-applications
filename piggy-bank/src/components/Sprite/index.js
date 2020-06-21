@@ -16,7 +16,7 @@ function Sprite(props) {
     }, [props.picture]);
 
     useEffect(() => {
-        if (isRunning) {
+        if (isRunning && !props.isBlocked) {
             const id = setTimeout(animate, props.interval);
             setTimer(id);
             return () => clearTimeout(id);
@@ -25,9 +25,10 @@ function Sprite(props) {
 
 
     function initSprite() {
-        const startPosition = props.position * 100 / (props.width - props.step);
+        const startPosition = props.position * props.step * 100 / (props.width - props.step);
+        const step = props.step * 100 / (props.width - props.step);
         setPosition(startPosition);
-        setStep(props.step * 100 / (props.width - props.step));
+        setStep(step);
         setWidth(100);
         sprite.current.style.backgroundImage = `url('./images/sprites/${props.picture}.png')`;
         sprite.current.style.backgroundPosition = `${startPosition}% 0%`;
