@@ -9,6 +9,7 @@ import Minion from '../../components/Minion';
 import Sprite from '../../components/Sprite';
 import moneyboxAction from '../../store/actions/moneybox-actions';
 import minionsAction from '../../store/actions/minions-actions';
+import Header from '../../components/Header';
 
 function Home() {
     let history = useHistory();
@@ -17,7 +18,6 @@ function Home() {
     const coinSprite = minions.find(minion => minion.picture === 'coin-star');
     const plusSprite = minions.find(minion => minion.picture === 'plus-green');
     const equalSprite = minions.find(minion => minion.picture === 'equal-green');
-    const piggyBank = minions.find(minion => minion.picture === 'piggy-bank');
     const [previousMinion, setPreviousMinion] = useState(minions.find(minion => minion.id === 100 + moneybox.minions));
     const [minion, setMinion] = useState(minions.find(minion => minion.id === 101 + moneybox.minions));
     const [nextMinion, setNextMinion] = useState(minions.find(minion => minion.id === 102 + moneybox.minions));
@@ -76,11 +76,7 @@ function Home() {
 
     return (
         <div className="Home">
-            <header>
-                <CoinsTotal coinsTotal={coinsTotal}/>
-                <NewCoins newCoins={newCoins}/>
-                <MinionsTotal minion={piggyBank} minionsTotal={minionsTotal}/>
-            </header>
+            <Header {...{newCoins, coinsTotal, minionsTotal}}/>
             <section className={isVisible ? 'hidden' : 'visible'}>
                 <div className={`previous ${isArrowsVisible ? 'visible' : 'hidden'}`} onClick={handlePreviousClick}>
                     <div className="minion">

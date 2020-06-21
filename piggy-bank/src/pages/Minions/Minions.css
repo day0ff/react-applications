@@ -1,21 +1,27 @@
-.Minions{}
+.Minions{
+    position: relative;
+}
+
+.Minions article{
+    overflow: auto;
+    background: url('/images/backgrounds/breadboard-white.png') repeat top center;
+}
 
 .minions-list{
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
-    /*margin: 3vw;*/
-    width: 100vw;
+    width: 90vw;
     height: 30vw;
 }
 
 .minion-item{
     position: relative;
-    margin: 18px 1vw;
-    width: 30vw;
-    height: 30vw;
+    width: 25vw;
+    height: 25vw;
     max-width: 250px;
     max-height: 250px;
+    margin-bottom: min(10vw,100px);
 }

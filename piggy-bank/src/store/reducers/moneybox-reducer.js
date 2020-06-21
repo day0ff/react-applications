@@ -12,7 +12,7 @@ const {
 
 const INITIAL_STATE = {
     coins: 0,
-    newCoins: 8,
+    newCoins: 5,
     minions: 0
 };
 
