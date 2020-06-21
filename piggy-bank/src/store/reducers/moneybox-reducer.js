@@ -3,6 +3,7 @@ import { ACTION_TYPES } from '../actions/action-types';
 const {
     INCREMENT_COINS,
     DECREMENT_COINS,
+    ADD_COINS,
     INCREMENT_NEW_COINS,
     DECREMENT_NEW_COINS,
     INCREMENT_MINIONS,
@@ -11,12 +12,14 @@ const {
 
 const INITIAL_STATE = {
     coins: 0,
-    newCoins: 0,
+    newCoins: 8,
     minions: 0
 };
 
 const moneyboxReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case ADD_COINS:
+            return state.newCoins >= action.amount ? {...state, coins: state.coins + action.amount, newCoins: state.newCoins - action.amount} : state;
         case INCREMENT_COINS:
             return state.newCoins > 0 ? {...state, coins: state.coins++, newCoins: --state.newCoins} : state;
         case DECREMENT_COINS:

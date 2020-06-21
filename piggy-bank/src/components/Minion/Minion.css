@@ -1,20 +1,31 @@
-.Minion{
+.Minion {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     right: 0;
     bottom: 0;
     text-align: center;
 }
 
-.Minion:hover, .Minion:focus{
+.Minion:hover, .Minion:focus {
     cursor: pointer;
 }
 
-.minion-mark{
-    position: absolute;
-    color: white;
+.minion-mark, .minion-name {
     font-size: 4vw;
-    top:calc(50% - 2vw);
-    left:calc(50% - 4vw / 6);
+    font-weight: bold;
+    line-height: 3vw;
+}
+
+.minion-mark {
+    position: absolute;
+    color: black;
+    text-shadow: 2px 0 white, 0 2px white, -2px 0 white, 0 -2px white;
+    top: calc(50% - 2vw);
+    left: calc(50% - 4vw / 6);
+}
+
+.minion-name {
+    color: white;
+    text-shadow: 2px 0 black, 0 2px black, -2px 0 black, 0 -2px black;
 }

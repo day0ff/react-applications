@@ -44,7 +44,7 @@ function Sprite(props) {
     function animate() {
         const newPosition = position <= width ? position + step : 0;
         setPosition(newPosition);
-        sprite.current.style.backgroundPosition = `${position}% 0%`;
+        sprite.current.style.backgroundPosition = `${newPosition}% 0%`;
     }
 
     function activate() {
